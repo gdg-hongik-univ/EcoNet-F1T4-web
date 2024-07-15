@@ -1,5 +1,11 @@
+import Mainpage from "./pages/Mainpage.js";
+
 function Main() {
-  return <div>메인페이지임</div>;
+  return (
+    <div>
+      <Mainpage></Mainpage>
+    </div>
+  );
 }
 
 export default Main;
