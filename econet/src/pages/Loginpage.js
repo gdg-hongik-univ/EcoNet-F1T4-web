@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../styles/Loginpage.css";
 
 function Loginpage() {
   const [username, setUsername] = useState("");
@@ -13,10 +14,10 @@ function Loginpage() {
   };
 
   return (
-    <>
+    <div id="box">
       <div>
-        <button>{"<"}</button>
-        로그인
+        <button id="back">{"<"}</button>
+        <span id="login-title">로그인</span>
       </div>
       <form>
         <label htmlFor="username">아이디</label>
@@ -32,9 +33,9 @@ function Loginpage() {
           type="password"
           onChange={handlePasswordChange}
         ></input>
-        <button>로그인</button>
+        <button id="login-button">로그인</button>
       </form>
-    </>
+    </div>
   );
 }
 
