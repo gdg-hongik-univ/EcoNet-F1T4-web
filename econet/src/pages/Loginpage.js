@@ -35,6 +35,7 @@ function Loginpage() {
         ></input>
         <button id="login-button">로그인</button>
       </form>
+      <button id="not-member">회원이 아니신가요?</button>
     </div>
   );
 }

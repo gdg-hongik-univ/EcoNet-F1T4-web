@@ -6,6 +6,7 @@
 #box {
   margin: 200px auto;
   width: 350px;
+  position: relative;
 }
 
 #login-title {
@@ -55,4 +56,14 @@ input {
   font-weight: 700;
   background-color: #6bddc4;
   color: #ffffff;
+}
+
+#not-member {
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+  border: 0;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 600;
 }
