@@ -1,9 +1,10 @@
-import MainPage from "./pages/MainPage.js";
+import EcoNewsPage from "./pages/EcoNewsPage.js";
+//import MainPage from "./pages/MainPage.js";
 
 function MainComponent() {
   return (
     <div>
-      <MainPage></MainPage>
+      <EcoNewsPage />
     </div>
   );
 }

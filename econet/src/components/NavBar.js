@@ -1,6 +1,7 @@
 // CSS
 import "../styles/navbar-styles.css";
 
+// 상단의 네비게이션 바
 export default function NavBar() {
   const handleMainPageClick = () => {
     // TODO navigate to MainPage
