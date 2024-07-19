@@ -3,18 +3,18 @@
   font-family: "Noto Sans KR";
 }
 
-#box {
+.sign-box {
   margin: 200px auto;
   width: 350px;
   position: relative;
 }
 
-#login-title {
+.sign-title {
   font-size: 20px;
   font-weight: 600;
 }
 
-#back {
+.sign-back {
   background-color: transparent;
   border: 0;
   padding: 0;
@@ -24,11 +24,11 @@
   font-weight: 700;
 }
 
-form {
+.sign-form {
   margin-top: 50px;
 }
 
-label {
+.sign-label {
   display: block;
   font-weight: 500;
   margin-bottom: 8px;
@@ -45,7 +45,7 @@ input {
   padding-bottom: 4px;
 }
 
-#login-button {
+.sign-button {
   display: block;
   width: 100%;
   height: 60px;
@@ -58,7 +58,7 @@ input {
   color: #ffffff;
 }
 
-#not-member {
+.not-member {
   position: absolute;
   right: 0;
   background-color: transparent;
