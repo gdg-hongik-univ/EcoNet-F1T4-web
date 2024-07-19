@@ -10,8 +10,8 @@ import mapImg from "../assets/mainpage-menu-map.jpg";
 import NavBarBottom from "../components/NavBarBottom.js";
 
 // CSS
-import "../styles/mainpage.css";
-import "../styles/mainpage-menu-button-styles.css";
+import "../styles/mainpage/mainpage.css";
+import "../styles/mainpage/mainpage-menu-button-styles.css";
 
 export default function MainPage() {
   return (
@@ -22,7 +22,7 @@ export default function MainPage() {
         <MainPageMenuButton name={"오늘의 환경"} imgSrc={ecoImg} />
         <MainPageMenuButton name={"게시판"} imgSrc={boardImg} />
         <MainPageMenuButton name={"환경뉴스"} imgSrc={newsImg} />
-        <MainPageMenuButton name={"위치정보"} imgSrc={mapImg} />
+        <MainPageMenuButton name={"배출함 위치"} imgSrc={mapImg} />
       </div>
       <NavBarBottom />
     </div>
