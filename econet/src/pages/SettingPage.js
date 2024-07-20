@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 // import { useAuth } from "../contexts/AuthProvider";
 // import styles from "./SettingPage.module.css";
 // import Box from "@mui/material/Box";
+
 import * as React from "react";
+import "../styles/SettingPage.css";
 import TextField from "@mui/material/TextField";
 import { theme } from "../theme.js";
 import { ThemeProvider } from "@mui/material/styles";
@@ -64,95 +66,107 @@ function SettingPage() {
   const handleClose = () => setOpen(false);
 
   return (
-    <Container component="main" maxWidth="lg">
-      <Typography component="h1" variant="h5">
-        프로필 편집
-      </Typography>
+    <div id="box">
+      <Container component="main" maxWidth="xs">
+        <Typography component="h1" variant="h5">
+          프로필 설정
+        </Typography>
 
-      <TextField
-        label="아이디"
-        type="text"
-        name="id"
-        variant="outlined"
-        margin="normal"
-        fullWidth
-      />
-
-      <TextField
-        label="비밀번호"
-        type="password"
-        name="password"
-        variant="outlined"
-        margin="normal"
-        fullWidth
-      />
-
-      <TextField
-        label="이메일"
-        type="email"
-        name="email"
-        variant="outlined"
-        margin="normal"
-        fullWidth
-      />
-
-      <ThemeProvider theme={theme}>
-        <Button
-          onClick={handleOpen}
-          type="submit"
-          variant="contained"
-          color="pointColor"
+        <TextField
+          label="아이디"
+          type="text"
+          name="id"
+          variant="outlined"
           margin="normal"
-        >
-          변경하기
-        </Button>
+          fullWidth
+        />
 
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <TextField
-              label="변경할 비밀번호"
-              type="password"
-              name="password"
-              variant="outlined"
-              margin="normal"
-              fullWidth
-            />
-
-            <TextField
-              label="비밀번호 재입력"
-              type="password"
-              name="password"
-              variant="outlined"
-              margin="normal"
-              fullWidth
-            />
-            <Button
-              onClick={handleOpen}
-              type="submit"
-              variant="outlined"
-              color="pointColor"
-              margin="normal"
-            >
-              변경완료
-            </Button>
-          </Box>
-        </Modal>
-
-        <Button
-          type="submit"
-          variant="contained"
-          color="pointColor"
+        <TextField
+          label="비밀번호"
+          type="password"
+          name="password"
+          variant="outlined"
           margin="normal"
-        >
-          계정삭제
-        </Button>
-      </ThemeProvider>
-    </Container>
+          fullWidth
+        />
+
+        <TextField
+          label="이메일"
+          type="email"
+          name="email"
+          variant="outlined"
+          margin="normal"
+          fullWidth
+        />
+
+        <ThemeProvider theme={theme}>
+          <Button
+            onClick={handleOpen}
+            type="submit"
+            variant="contained"
+            color="pointColor"
+            margin="normal"
+          >
+            변경하기
+          </Button>
+
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <TextField
+                label="현재 비밀번호"
+                type="password"
+                name="password"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+              />
+
+              <TextField
+                label="새 비밀번호"
+                type="password"
+                name="password"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+              />
+
+              <TextField
+                label="새 비밀번호 확인"
+                type="password"
+                name="password"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+              />
+
+              <Button
+                onClick={handleOpen}
+                type="submit"
+                variant="outlined"
+                color="pointColor"
+                margin="normal"
+              >
+                변경완료
+              </Button>
+            </Box>
+          </Modal>
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="pointColor"
+            margin="normal"
+          >
+            계정삭제
+          </Button>
+        </ThemeProvider>
+      </Container>
+    </div>
   );
 }
 

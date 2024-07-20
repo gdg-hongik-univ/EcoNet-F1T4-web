@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans KR";
+}
+
+#box {
+  margin: 200px auto;
+  width: 1000px;
+}
+
+#back {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  margin-right: 10px;
+  margin-left: 4px;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+form {
+  margin-top: 50px;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
