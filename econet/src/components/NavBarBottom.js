@@ -1,6 +1,7 @@
 // CSS
 import "../styles/navbar-bottom-styles.css";
 
+// 하단의 약관 적혀있는 바
 export default function NavBarBottom() {
   return (
     <div className="navbar-bottom">
