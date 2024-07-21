@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Mainpage from "./pages/Mainpage";
-import Loginpage from "./pages/Loginpage";
+import MainPage from "./pages/MainPage";
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage.js";
 import SettingPage from "./pages/SettingPage";
 import TodayPage from "./pages/TodayPage";
 import LocationPage from "./pages/LocationPage.js";
@@ -15,9 +16,12 @@ function MainComponent() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<Mainpage />} />
-            <Route path="login">
-              <Route index element={<Loginpage />} />
+            <Route index element={<MainPage />} />
+            <Route path="signin">
+              <Route index element={<SignInPage />} />
+            </Route>
+            <Route path="signup">
+              <Route index element={<SignUpPage />} />
             </Route>
             <Route path="setting">
               <Route index element={<SettingPage />} />

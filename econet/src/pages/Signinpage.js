@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Signtitle from "../components/Signtitle";
-import Signinput from "../components/Signinput";
-import Signbutton from "../components/Signbutton";
-import "../styles/Sign.css";
+import SignTitle from "../components/SignTitle";
+import SignInput from "../components/SignInput";
+import SignButton from "../components/SignButton";
+import styles from "../styles/SignPage.module.css";
 
-function Signinpage() {
+function SignInPage() {
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -36,28 +36,28 @@ function Signinpage() {
   };
 
   return (
-    <div className="sign-box" onChange={handleUserInfoChange}>
-      <Signtitle title="로그인" />
-      <form className="sign-form" onSubmit={handleSubmit}>
-        <Signinput
+    <div className={styles.sign_box} onChange={handleUserInfoChange}>
+      <SignTitle title="로그인" />
+      <form className={styles.sign_form} onSubmit={handleSubmit}>
+        <SignInput
           type="email"
           content="이메일"
           value={userInfo.email}
           name="email"
           placeholder="이메일을 입력하세요"
         />
-        <Signinput
+        <SignInput
           type="password"
           content="비밀번호"
           value={userInfo.password}
           name="password"
           placeholder="비밀번호를 입력하세요"
         />
-        <Signbutton title="로그인" disabled={!isInvalid} />
+        <SignButton title="로그인" disabled={!isInvalid} />
       </form>
-      <button className="not-member">회원이 아니신가요?</button>
+      <button className={styles.not_member}>회원이 아니신가요?</button>
     </div>
   );
 }
 
-export default Signinpage;
+export default SignInPage;

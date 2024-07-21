@@ -1,7 +1,9 @@
-function Signinput({ type, content, value, name, placeholder }) {
+import styles from "../styles/SingInput.module.css";
+
+function SignInput({ type, content, value, name, placeholder }) {
   return (
     <>
-      <label htmlFor={name} className="sign-label">
+      <label htmlFor={name} className={styles.sign_label}>
         {content}
       </label>
       <input
@@ -10,9 +12,10 @@ function Signinput({ type, content, value, name, placeholder }) {
         value={value}
         name={name}
         placeholder={placeholder}
+        required
       ></input>
     </>
   );
 }
 
-export default Signinput;
+export default SignInput;

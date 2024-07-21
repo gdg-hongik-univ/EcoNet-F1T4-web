@@ -1,9 +1,12 @@
-function Signbutton({ title }) {
+import React from "react";
+import styles from "../styles/SignButton.module.css";
+
+function SignButton({ title }) {
   return (
-    <button className="sign-button" type="submit">
+    <button className={styles.sign_button} type="submit">
       {title}
     </button>
   );
 }
 
-export default Signbutton;
+export default SignButton;

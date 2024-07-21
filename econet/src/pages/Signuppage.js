@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Signtitle from "../components/Signtitle";
-import Signinput from "../components/Signinput";
-import Signbutton from "../components/Signbutton";
+import SignTitle from "../components/SignTitle";
+import SignInput from "../components/SignInput";
+import SignButton from "../components/SignButton";
+import styles from "../styles/SignPage.module.css";
 
-function Signuppage() {
+function SignUpPage() {
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
@@ -25,7 +26,7 @@ function Signuppage() {
   //   navigate("/signup");
   // };
 
-  const handleSubmit = (e) => {
+  const handleSuBmit = (e) => {
     e.preventDefault();
 
     if (userInfo.password.length < 8) {
@@ -39,34 +40,34 @@ function Signuppage() {
   };
 
   return (
-    <div className="sign-box" onChange={handleUserInfoChange}>
-      <Signtitle title="회원가입" />
-      <form className="sign-form" onSubmit={handleSubmit}>
-        <Signinput
+    <div className={styles.sign_box} onChange={handleUserInfoChange}>
+      <SignTitle title="회원가입" />
+      <form className={styles.sign_form} onSubmit={handleSuBmit}>
+        <SignInput
           type="email"
           content="이메일"
           value={userInfo.email}
           name="email"
           placeholder="이메일을 입력하세요"
         />
-        <Signinput
+        <SignInput
           type="password"
           content="비밀번호"
           value={userInfo.password}
           name="password"
           placeholder="비밀번호를 입력하세요"
         />
-        <Signinput
+        <SignInput
           type="password"
-          content="비밀번호 재입력"
+          content="비밀번호 확인"
           value={userInfo.passwordconfirm}
           name="passwordconfirm"
           placeholder="비밀번호를 입력하세요"
         />
-        <Signbutton title="가입완료" />
+        <SignButton title="가입완료" />
       </form>
     </div>
   );
 }
 
-export default Signuppage;
+export default SignUpPage;

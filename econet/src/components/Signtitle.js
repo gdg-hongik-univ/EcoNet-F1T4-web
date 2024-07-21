@@ -1,10 +1,12 @@
-function Signtitle({ title }) {
+import styles from "../styles/SignTitle.module.css";
+
+function SignTitle({ title }) {
   return (
     <>
-      <button className="sign-back">{"<"}</button>
-      <span className="sign-title">{title}</span>
+      <button className={styles.sign_back}>{"<"}</button>
+      <span className={styles.sign_title}>{title}</span>
     </>
   );
 }
 
-export default Signtitle;
+export default SignTitle;
