@@ -1,6 +1,7 @@
 .box {
-  width: 920px;
-  margin: 100px auto;
+  width: 100%;
+  margin-top: 80px;
+  margin-bottom: 50px;
   background-color: rgba(86, 216, 188, 0.5);
   padding: 10px 20px;
   border-radius: 5px;

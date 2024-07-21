@@ -24,11 +24,11 @@ function SignInPage() {
     userInfo.email.includes(".") &&
     userInfo.password.length >= 8;
 
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const goSignupPage = () => {
-  //   navigate("/signup");
-  // };
+  const goSignUpPage = () => {
+    navigate("/signup");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,7 +55,9 @@ function SignInPage() {
         />
         <SignButton title="로그인" disabled={!isInvalid} />
       </form>
-      <button className={styles.not_member}>회원이 아니신가요?</button>
+      <button onClick={goSignUpPage} className={styles.not_member}>
+        회원이 아니신가요?
+      </button>
     </div>
   );
 }

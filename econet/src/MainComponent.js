@@ -9,6 +9,7 @@ import EcoNewsPage from "./pages/EcoNewsPage.js";
 import App from "./components/App";
 import { theme } from "./theme.js";
 import { ThemeProvider } from "@mui/material";
+import PostMainPage from "./pages/PostMainPage.js";
 
 function MainComponent() {
   return (
@@ -28,6 +29,9 @@ function MainComponent() {
             </Route>
             <Route path="today">
               <Route index element={<TodayPage />} />
+            </Route>
+            <Route path="post">
+              <Route index element={<PostMainPage />} />
             </Route>
             <Route path="location">
               <Route index element={<LocationPage />} />
