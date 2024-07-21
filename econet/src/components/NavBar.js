@@ -12,35 +12,12 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import "../styles/navbar-styles.css";
 
 const pages = ["오늘의 환경", "게시판", "환경뉴스", "배출함 위치"];
 const settings = ["프로필", "로그아웃"];
 
 export default function NavBar() {
-  const handleMainPageClick = () => {
-    // TODO navigate to MainPage
-  };
-
-  const handleTodayEnvironmentClick = () => {
-    // TODO navigate to 오늘의 환경 page
-  };
-  const handleBoardClick = () => {
-    // TODO navigate to 게시판 page
-  };
-  const handleEcoNewsClick = () => {
-    // TODO navigate to 환경뉴스 page
-  };
-  const handleMapClick = () => {
-    // TODO navigate to 배출함 위치 page
-  };
-
-  const handleLoginClick = () => {
-    // TODO navigate to 로그인 page
-  };
-  const handleSignUpClick = () => {
-    // TODO navigate to 회원가입 page
-  };
-
   // nav bar
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
