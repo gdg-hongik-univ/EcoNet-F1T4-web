@@ -1,11 +1,9 @@
-.navbar-bottom {
+.navbar {
   display: flex;
-  gap: 16px;
   align-items: center;
   text-align: center;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   width: 99%;
   padding: 8px;
-
-  border: 2px solid #000000;s
+  border: 2px solid #000000;
 }
