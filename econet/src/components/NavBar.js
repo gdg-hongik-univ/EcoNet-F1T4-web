@@ -18,7 +18,7 @@ const pages = ["오늘의 환경", "게시판", "환경뉴스", "배출함 위�
 const settings = ["프로필", "로그아웃"];
 
 export default function NavBar() {
-  // nav bar
+  // nav bar..
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
