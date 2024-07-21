@@ -17,39 +17,24 @@ import "../styles/navbar-styles.css";
 const pages = ["오늘의 환경", "게시판", "환경뉴스", "배출함 위치"];
 const settings = ["프로필", "로그아웃"];
 
+// 상단의 네비게이션 바
 export default function NavBar() {
-  // nav bar
-
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
     /*
     <div className="navbar">
-      <button onClick={handleMainPageClick}>에코넷</button>
+      <Link to="/">
+        <button>에코넷</button>
+      </Link>
       <div>
-        <button onClick={handleTodayEnvironmentClick}>오늘의 환경</button>
-        <button onClick={handleBoardClick}>게시판</button>
-        <button onClick={handleEcoNewsClick}>환경 뉴스</button>
-        <button onClick={handleMapClick}>배출함 위치</button>
+        <button>오늘의 환경</button>
+        <button>게시판</button>
+        <Link to="econews">
+          <button>환경 뉴스</button>
+        </Link>
+        <button>배출함 위치</button>
       </div>
-      <button onClick={handleLoginClick}>로그인</button>
-      <button onClick={handleSignUpClick}>회원가입</button>
+      <button>로그인</button>
+      <button>회원가입</button>
     </div>
     */
 
