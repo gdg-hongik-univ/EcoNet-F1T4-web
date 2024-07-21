@@ -4,12 +4,12 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage.js";
 import SettingPage from "./pages/SettingPage";
 import TodayPage from "./pages/TodayPage";
+import PostMainPage from "./pages/PostMainPage.js";
 import LocationPage from "./pages/LocationPage.js";
 import EcoNewsPage from "./pages/EcoNewsPage.js";
 import App from "./components/App";
 import { theme } from "./theme.js";
 import { ThemeProvider } from "@mui/material";
-import PostMainPage from "./pages/PostMainPage.js";
 
 function MainComponent() {
   return (

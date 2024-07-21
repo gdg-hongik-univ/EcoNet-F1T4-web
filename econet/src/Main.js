@@ -1,4 +1,4 @@
-import Mainpage from "./pages/Mainpage.js";
+import MainPage from "./pages/MainPage.js";
 import SettingPage from "./pages/SettingPage";
 
 function Main() {
