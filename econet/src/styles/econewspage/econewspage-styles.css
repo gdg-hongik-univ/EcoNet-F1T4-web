@@ -1,0 +1,33 @@
+.search-bar-flex {
+  display: flex;
+  margin: 16px 0 16px 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.econews-style {
+  display: flex;
+  align-items: center;
+  border: 2px solid #000000;
+}
+
+.econews-list-style {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #000000;
+}
+
+.econews-list-box {
+  display: flex;
+  margin: 16px 0 16px 0;
+  justify-content: space-around;
+  border: 2px solid #000000;
+}
+
+.ecoparty-list-box {
+  display: flex;
+  align-items: center;
+  border: 2px solid #000000;
+}
