@@ -1,4 +1,4 @@
-# huni77
+# README
 /* 설치해야 할 것 */
 npm install
 npm install @mui/material @emotion/react @emotion/styled
