@@ -4,7 +4,6 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage.js";
 import SettingPage from "./pages/SettingPage";
 import TodayPage from "./pages/TodayPage";
-import PostMainPage from "./pages/PostMainPage.js";
 import LocationPage from "./pages/LocationPage.js";
 import EcoNewsPage from "./pages/EcoNewsPage.js";
 import App from "./components/App";
@@ -29,9 +28,6 @@ function MainComponent() {
             </Route>
             <Route path="today">
               <Route index element={<TodayPage />} />
-            </Route>
-            <Route path="post">
-              <Route index element={<PostMainPage />} />
             </Route>
             <Route path="location">
               <Route index element={<LocationPage />} />
