@@ -12,7 +12,7 @@ import mapImg from "../assets/mainpage-menu-map.jpg";
 import "../styles/mainpage/mainpage.css";
 import "../styles/mainpage/mainpage-menu-button-styles.css";
 
-export default function MainPage() {
+export default function Mainpage() {
   return (
     <div className="mainpage-container">
       <Logo />
