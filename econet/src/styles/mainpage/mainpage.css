@@ -1,5 +1,42 @@
+* {
+  box-sizing: border-box;
+  font-family: "Noto Sans KR";
+}
+
 .mainpage-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.menu-button-text {
+  color: #56d8bc;
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 16px;
+}
+
+.menu-button-box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 64px;
+  margin: 16px;
+}
+
+.menu-button {
+  width: 200px;
+  height: 250px;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #56d8bc;
+  border-radius: 16px;
+}
+.menu-button-img-style {
+  width: 200px;
+  height: 160px;
+  border-radius: 16px;
 }

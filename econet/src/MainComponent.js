@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MainPage from "./pages/MainPage";
+import Mainpage from "./pages/Mainpage.js";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage.js";
 import SettingPage from "./pages/SettingPage";
@@ -10,6 +10,7 @@ import EcoNewsPage from "./pages/EcoNewsPage.js";
 import App from "./components/App";
 import { theme } from "./theme.js";
 import { ThemeProvider } from "@mui/material";
+import MyPage from "./pages/MyPage.js";
 
 function MainComponent() {
   return (
@@ -17,7 +18,7 @@ function MainComponent() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<MainPage />} />
+            <Route index element={<Mainpage />} />
             <Route path="signin">
               <Route index element={<SignInPage />} />
             </Route>
@@ -38,6 +39,9 @@ function MainComponent() {
             </Route>
             <Route path="econews">
               <Route index element={<EcoNewsPage />} />
+            </Route>
+            <Route path="mypage">
+              <Route index element={<MyPage />} />
             </Route>
           </Route>
         </Routes>
