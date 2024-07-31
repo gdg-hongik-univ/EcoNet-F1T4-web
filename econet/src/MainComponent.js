@@ -4,7 +4,7 @@ import { ThemeProvider } from "@mui/material";
 
 // pages
 
-import Mainpage from "./pages/Mainpage.js";
+import MainPage from "./pages/MainPage.js";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage.js";
 import SettingPage from "./pages/SettingPage";
@@ -21,7 +21,7 @@ function MainComponent() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<Mainpage />} />
+            <Route index element={<MainPage />} />
             <Route path="signin">
               <Route index element={<SignInPage />} />
             </Route>
