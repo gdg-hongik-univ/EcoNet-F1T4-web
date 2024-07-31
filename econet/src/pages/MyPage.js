@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import MyComments from "../components/MyComments";
 import MyPosts from "../components/MyPosts";
 import UserProfile from "../components/UserProfile";
@@ -24,6 +25,15 @@ const MyContainer = styled.div`
   text-align: center;
 `;
 
+const Button = styled(Link)`
+  width: 120px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid #6bddc4;
+  font-size: 16px;
+  font-weight: 600;
+`;
+
 // 유저 자기소개. 데이터 받아와서 초기화 예정
 const userIntro = `유저 자기소개 유저 자기소개 유저 자기소개 유저 자기소개 유저 자기소개 유저 자기소개 유저 자기소개 유저 자기소개`;
 
@@ -32,8 +42,8 @@ export default function MyPage() {
     <MyPageContainer>
       <UserProfile userTier={""} userImg={""} userName={"Steve"} />
       <UserIntro>{userIntro}</UserIntro>
-      <button>계정설정</button>
-      <button>프로필 변경</button>
+      <Button to="/account">계정설정</Button>
+
       <MyContainer>
         {/* <MyComments />
         <MyPosts /> */}
