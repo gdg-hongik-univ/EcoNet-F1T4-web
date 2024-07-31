@@ -4,11 +4,7 @@ import { ThemeProvider } from "@mui/material";
 
 // pages
 
-<<<<<<< HEAD
-import Mainpage from "./pages/Mainpage.js";
-=======
 import MainPage from "./pages/MainPage.js";
->>>>>>> main
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage.js";
 import SettingPage from "./pages/SettingPage";
