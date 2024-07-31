@@ -73,27 +73,17 @@ function SettingPage() {
         </Typography>
 
         <TextField
-          label="아이디"
-          type="text"
-          name="id"
+          label="이메일"
+          type="email"
+          name="email"
           variant="outlined"
           margin="normal"
           fullWidth
         />
-
         <TextField
           label="비밀번호"
           type="password"
           name="password"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-        />
-
-        <TextField
-          label="이메일"
-          type="email"
-          name="email"
           variant="outlined"
           margin="normal"
           fullWidth
@@ -155,16 +145,15 @@ function SettingPage() {
               </Button>
             </Box>
           </Modal>
-
-          <Button
-            type="submit"
-            variant="contained"
-            color="pointColor"
-            margin="normal"
-          >
-            계정삭제
-          </Button>
         </ThemeProvider>
+        <Button
+          type="submit"
+          variant="contained"
+          color="pointColor"
+          margin="normal"
+        >
+          계정삭제
+        </Button>
       </Container>
     </div>
   );
