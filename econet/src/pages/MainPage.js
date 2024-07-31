@@ -26,7 +26,7 @@ const Logo = styled.text`
   }
 `;
 
-export default function Mainpage() {
+export default function MainPage() {
   return (
     <MainContainer>
       <Logo>
