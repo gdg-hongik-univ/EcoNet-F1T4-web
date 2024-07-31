@@ -17,8 +17,8 @@ const UserTier = styled.img`
 
 // 유저 이미지
 const UserImg = styled.img`
-  width: 300px; /* 원하는 크기로 설정하세요 */
-  height: 300px; /* 원하는 크기로 설정하세요 */
+  width: 240px; /* 원하는 크기로 설정하세요 */
+  height: 240px; /* 원하는 크기로 설정하세요 */
   border-radius: 50%;
   object-fit: cover; /* 이미지 비율을 유지하면서 크기에 맞춤 */
   border: 2px solid #000000;
@@ -38,7 +38,7 @@ const UserName = styled.h2`
 
 // 유저 프로필 정보를 보여주는 컴포넌트
 // 유저 티어(메달), 유저이름, 프로필사진, 자기소개
-export default function UserProfile({ userTier, userImg, userName = "Steve" }) {
+export default function UserProfile({ userTier, userImg, userName }) {
   return (
     <ProfileContainer>
       <UserTier src={userTier} alt="유저 티어" />

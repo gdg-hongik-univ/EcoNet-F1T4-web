@@ -1,4 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { theme } from "./theme.js";
+import { ThemeProvider } from "@mui/material";
+
+// pages
+
 import Mainpage from "./pages/Mainpage.js";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage.js";
@@ -7,10 +12,9 @@ import TodayPage from "./pages/TodayPage";
 import PostMainPage from "./pages/PostMainPage.js";
 import LocationPage from "./pages/LocationPage.js";
 import EcoNewsPage from "./pages/EcoNewsPage.js";
-import App from "./components/App";
-import { theme } from "./theme.js";
-import { ThemeProvider } from "@mui/material";
+import AccountSettingPage from "./pages/AccountSettingPage.js";
 import MyPage from "./pages/MyPage.js";
+import App from "./components/App";
 
 function MainComponent() {
   return (
@@ -42,6 +46,9 @@ function MainComponent() {
             </Route>
             <Route path="mypage">
               <Route index element={<MyPage />} />
+            </Route>
+            <Route path="account">
+              <Route index element={<AccountSettingPage />} />
             </Route>
           </Route>
         </Routes>
