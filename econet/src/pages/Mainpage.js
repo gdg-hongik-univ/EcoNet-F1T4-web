@@ -1,27 +1,38 @@
-import Logo from "../components/Logo.js";
-import MainPageMenuButton from "../components/MainPageMenuButton.js";
-import "../styles/mainpage/mainpage.css";
-
+import { Link } from "react-router-dom";
 // images
 import ecoImg from "../assets/mainpage-menu-ecoinfo.jpg";
-import boardImg from "../assets/mainpage-menu-board.jpg";
-import newsImg from "../assets/mainpage-menu-econews.jpg";
-import mapImg from "../assets/mainpage-menu-map.jpg";
 
-// CSS
-import "../styles/mainpage/mainpage.css";
-import "../styles/mainpage/mainpage-menu-button-styles.css";
+import styled from "styled-components";
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+// 로고 이미지
+const LogoImg = styled.img`
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+`;
+// EcoNet 로고
+const Logo = styled.text`
+  font-size: 80px;
+  color: #56d8bc;
+  margin: 80px 0 160px;
+  ${LogoImg} {
+    margin-right: 8px;
+  }
+`;
 
 export default function MainPage() {
   return (
-    <div className="mainpage-container">
-      <Logo />
-      <div className="menu-button-box">
-        <MainPageMenuButton name={"오늘의 환경"} imgSrc={ecoImg} />
-        <MainPageMenuButton name={"게시판"} imgSrc={boardImg} />
-        <MainPageMenuButton name={"환경뉴스"} imgSrc={newsImg} />
-        <MainPageMenuButton name={"배출함 위치"} imgSrc={mapImg} />
-      </div>
-    </div>
+    <MainContainer>
+      <Logo>
+        <LogoImg src={ecoImg} alt="로고이미지"></LogoImg>
+        EcoNet
+      </Logo>
+    </MainContainer>
   );
 }
