@@ -21,7 +21,7 @@ function MainComponent() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<Mainpage />} />
+            <Route index element={<MainPage />} />
             <Route path="signin">
               <Route index element={<SignInPage />} />
             </Route>
