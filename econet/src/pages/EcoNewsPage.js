@@ -15,7 +15,6 @@ export default function EcoNewsPage() {
   };
   return (
     <div>
-      <NavBar></NavBar>
       <div className="search-bar-flex">
         <SearchBar onSearch={handleSearch}></SearchBar>
         <button>즐겨찾기 한 기사들</button>
