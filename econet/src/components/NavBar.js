@@ -77,7 +77,7 @@ const NavBar = () => {
           <MenuItem to="/location">배출함 위치</MenuItem>
         </Menu>
         <AuthButtons>
-          <AuthButton to="/login">로그인</AuthButton>
+          <AuthButton to="/signin">로그인</AuthButton>
           <AuthButton to="/signup">회원가입</AuthButton>
         </AuthButtons>
       </NavBarInner>

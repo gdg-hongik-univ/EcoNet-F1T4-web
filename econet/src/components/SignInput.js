@@ -1,6 +1,6 @@
 import styles from "../styles/SingInput.module.css";
 
-function SignInput({ type, content, value, name, placeholder }) {
+function SignInput({ type, content, value, name, placeholder, onChange }) {
   return (
     <>
       <label htmlFor={name} className={styles.sign_label}>
@@ -13,6 +13,7 @@ function SignInput({ type, content, value, name, placeholder }) {
         name={name}
         placeholder={placeholder}
         required
+        onChange={onChange} // onChange 핸들러 추가
       ></input>
     </>
   );
