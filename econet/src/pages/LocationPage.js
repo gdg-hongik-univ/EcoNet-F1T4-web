@@ -1,22 +1,25 @@
-import React from "react";
-import Typography from "@mui/material/Typography";
+import React, { useState } from "react";
+import styled from "styled-components";
+import Map from "../components/Map";
+
+const Title = styled.div`
+  margin: 40px 60px;
+  font-size: 36px;
+  font-weight: 700;
+`;
+
+const StyledMap = styled(Map)`
+  width: 1000px;
+  height: 600px;
+  margin: 0 auto;
+`;
 
 function LocationPage() {
   return (
-    <div
-      id="box"
-      style={{
-        display: "flex",
-        flexDirection: "column", // 수직으로 정렬
-        alignItems: "center", // 가운데 정렬
-        width: "1000px",
-        margin: "200px auto",
-      }}
-    >
-      <Typography component="h1" variant="h5" style={{ marginBottom: "10px" }}>
-        배출함 위치
-      </Typography>
-    </div>
+    <>
+      <Title>배출함 위치 찾아보기</Title>
+      <StyledMap />
+    </>
   );
 }
 
