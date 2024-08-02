@@ -1,5 +1,8 @@
 import React from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { isLoggedInState } from "../atom/atoms";
+import { logoutUser } from "../api/logout";
 import { Link } from "react-router-dom"; // Link를 사용하여 내비게이션을 처리합니다.
 
 // Styled Components
@@ -54,20 +57,41 @@ const AuthButtons = styled.div`
 `;
 
 const AuthButton = styled(Link)`
-  color: ${({ isSignup }) =>
-    isSignup ? "#58D7BC" : "white"}; /* 회원가입 버튼만 초록색 */
-  background-color: ${({ isSignup }) =>
-    isSignup ? "white" : "#58D7BC"}; /* 회원가입 버튼만 흰색 배경 */
+  color: white;
+  background-color: #58d7bc;
   text-decoration: none;
   font-size: 12px;
   padding: 5px 10px;
   border-radius: 4px;
   transition: background-color 0.3s, color 0.3s;
 `;
+
+const Button = styled.button`
+  color: black;
+  background-color: #58d7bc;
+  border: none;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+`;
+
 // NavBar 컴포넌트
-const NavBar = () => {
+const NavBar = ({ className }) => {
+  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.error("로그아웃 중 오류 발생:", error);
+    }
+  };
   return (
-    <NavBarContainer>
+    <NavBarContainer className={className}>
       <NavBarInner>
         <Brand to="/">에코넷</Brand>
         <Menu>
@@ -77,8 +101,17 @@ const NavBar = () => {
           <MenuItem to="/location">배출함 위치</MenuItem>
         </Menu>
         <AuthButtons>
-          <AuthButton to="/signin">로그인</AuthButton>
-          <AuthButton to="/signup">회원가입</AuthButton>
+          {isLoggedIn ? (
+            <>
+              <Button onClick={handleLogout}>로그아웃</Button>
+              <AuthButton to="/mypage">계정 설정</AuthButton>
+            </>
+          ) : (
+            <>
+              <AuthButton to="/signin">로그인</AuthButton>
+              <AuthButton to="/signup">회원가입</AuthButton>
+            </>
+          )}
         </AuthButtons>
       </NavBarInner>
     </NavBarContainer>

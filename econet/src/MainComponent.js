@@ -3,7 +3,6 @@ import { theme } from "./theme.js";
 import { ThemeProvider } from "@mui/material";
 
 // pages
-
 import MainPage from "./pages/MainPage.js";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage.js";

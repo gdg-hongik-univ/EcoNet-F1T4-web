@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 // images
 import ecoImg from "../assets/mainpage-menu-ecoinfo.jpg";
 
@@ -19,7 +18,7 @@ const LogoImg = styled.img`
 // EcoNet 로고
 const Logo = styled.text`
   font-size: 80px;
-  color: #56d8bc;
+  color: #56d8bc;h 
   margin: 80px 0 160px;
   ${LogoImg} {
     margin-right: 8px;
