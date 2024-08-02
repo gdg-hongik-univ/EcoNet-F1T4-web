@@ -1,7 +1,8 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { isLoggedInState } from "../recoil/atoms";
+import { isLoggedInState } from "../atom/atoms";
+import { logoutUser } from "../api/logout";
 import { Link } from "react-router-dom"; // Link를 사용하여 내비게이션을 처리합니다.
 
 // Styled Components
@@ -66,7 +67,7 @@ const AuthButton = styled(Link)`
 `;
 
 const Button = styled.button`
-  color: white;
+  color: black;
   background-color: #58d7bc;
   border: none;
   font-size: 12px;
@@ -74,16 +75,21 @@ const Button = styled.button`
   border-radius: 4px;
   transition: background-color 0.3s, color 0.3s;
   cursor: pointer;
-
-  &:hover {
-    background-color: #45b8a4;
-  }
 `;
 
 // NavBar 컴포넌트
-const NavBar = ({ className, handleLogout }) => {
+const NavBar = ({ className }) => {
   const isLoggedIn = useRecoilValue(isLoggedInState);
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
 
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      setIsLoggedIn(false);
+    } catch (error) {
+      console.error("로그아웃 중 오류 발생:", error);
+    }
+  };
   return (
     <NavBarContainer className={className}>
       <NavBarInner>

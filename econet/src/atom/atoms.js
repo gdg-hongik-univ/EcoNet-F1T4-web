@@ -2,5 +2,5 @@ import { atom } from "recoil";
 
 export const isLoggedInState = atom({
   key: "isLoggedInState",
-  default: !!localStorage.getItem("access_token"),
+  default: false, // 기본값을 false로 설정
 });

@@ -6,15 +6,17 @@ import NavBar from "../components/NavBar";
 import NavBarBottom from "./NavBarBottom";
 import styles from "./App.module.css";
 import { logoutUser } from "../api/logout";
-import { isLoggedInState } from "../recoil/atoms";
+import { isLoggedInState } from "../atom/atoms";
 
 function App() {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
 
   const handleLogout = async () => {
     try {
-      await logoutUser();
-      setIsLoggedIn(false);
+      const response = await logoutUser();
+      if (response.detail === "Successfully logged out") {
+        setIsLoggedIn(false); // 로그인 상태를 false로 설정
+      }
     } catch (error) {
       console.error("로그아웃 중 오류 발생:", error);
     }

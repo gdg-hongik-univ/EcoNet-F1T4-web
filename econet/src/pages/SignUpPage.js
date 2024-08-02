@@ -11,7 +11,7 @@ function SignUpPage() {
     email: "",
     password: "",
     passwordconfirm: "",
-    nickname: "", // 닉네임 필드, 수정 필요
+    nickname: "",
   });
 
   const [formError, setFormError] = useState("");
