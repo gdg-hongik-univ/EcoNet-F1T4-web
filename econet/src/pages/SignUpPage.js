@@ -26,7 +26,7 @@ function SignUpPage() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setFormError("");
@@ -44,7 +44,7 @@ function SignUpPage() {
     }
 
     try {
-      signupUser(userInfo.email, userInfo.password, userInfo.nickname);
+      await signupUser(userInfo.email, userInfo.password, userInfo.nickname);
       navigate("/signin"); // 회원가입 후 로그인 페이지로 이동
     } catch (error) {
       console.error("회원가입 에러:", error.message);

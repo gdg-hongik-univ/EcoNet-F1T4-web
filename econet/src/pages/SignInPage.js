@@ -34,13 +34,20 @@ function SignInPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      await signinUser(userInfo.email, userInfo.password);
-      navigate("/");
-    } catch (error) {
-      console.error("로그인 에러:", error.message);
-      alert("로그인 실패: 이메일 또는 비밀번호를 확인하세요.");
-    }
+    signinUser(userInfo.email, userInfo.password)
+      .then((data) => {
+        if (data) {
+          navigate("/");
+        } else {
+          throw new Error(
+            "로그인 실패: 서버에서 유효한 응답을 받지 못했습니다."
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("로그인 에러:", error.message || error);
+        alert(error.message);
+      });
   };
 
   return (

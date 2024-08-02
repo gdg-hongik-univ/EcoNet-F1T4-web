@@ -1,12 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Typography from "@mui/material/Typography";
 
 function LocationPage() {
-  const [cardWidth, setCardWidth] = useState("200px");
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   return (
     <div
       id="box"
