@@ -1,11 +1,15 @@
 import { useState } from "react";
-import NavBar from "../components/NavBar";
+import styled from "styled-components";
 import SearchBar from "../components/SearchBar";
 import EcoNewsList from "../components/EcoNewsList";
 import EcoPartyList from "../components/EcoPartyList";
 
-// CSS
-import "../styles/econewspage/econewspage-styles.css";
+const EcoNewsListContainer = styled.div`
+  display: flex;
+  margin: 16px 0 16px 0;
+  padding: 8px;
+  justify-content: space-around;
+`;
 
 export default function EcoNewsPage() {
   const [searchText, setSearchText] = useState(""); // searchText = 검색창에 입력한 검색키워드
@@ -15,14 +19,12 @@ export default function EcoNewsPage() {
   };
   return (
     <div>
-      <div className="search-bar-flex">
-        <SearchBar onSearch={handleSearch}></SearchBar>
-        <button>즐겨찾기 한 기사들</button>
-      </div>
-      <div className="econews-list-box">
+      <SearchBar onSearch={handleSearch}></SearchBar>
+
+      <EcoNewsListContainer>
         <EcoNewsList></EcoNewsList>
         <EcoNewsList></EcoNewsList>
-      </div>
+      </EcoNewsListContainer>
       <EcoPartyList></EcoPartyList>
     </div>
   );

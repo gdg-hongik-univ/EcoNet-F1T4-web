@@ -25,6 +25,21 @@ const Logo = styled.text`
   }
 `;
 
+const IntroductionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+`;
+
+const Introduction = styled.h2`
+  font-size: 48px;
+  font-weight: 700;
+  color: #6bddc4;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), -2px -2px 4px rgba(0, 0, 0, 0.3);
+  margin: 20px 0;
+`;
+
 export default function MainPage() {
   return (
     <MainContainer>
@@ -32,6 +47,18 @@ export default function MainPage() {
         <LogoImg src={ecoImg} alt="로고이미지"></LogoImg>
         EcoNet
       </Logo>
+      <IntroductionContainer>
+        <Introduction>
+          환영합니다!
+          <br />
+          <br />
+          서로 힘을 합쳐 <br />
+          <br />
+          우리의 지구를 지켜요.
+          <br />
+          <br />
+        </Introduction>
+      </IntroductionContainer>
     </MainContainer>
   );
 }
