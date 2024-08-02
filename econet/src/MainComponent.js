@@ -14,6 +14,7 @@ import EcoNewsPage from "./pages/EcoNewsPage.js";
 import AccountSettingPage from "./pages/AccountSettingPage.js";
 import MyPage from "./pages/MyPage.js";
 import App from "./components/App";
+import GarbageDisposalPage from "./pages/GarbageDisposalPage.js";
 
 function MainComponent() {
   return (
@@ -36,6 +37,9 @@ function MainComponent() {
             </Route>
             <Route path="location">
               <Route index element={<LocationPage />} />
+            </Route>
+            <Route path="garbage">
+              <Route index element={<GarbageDisposalPage />} />
             </Route>
             <Route path="econews">
               <Route index element={<EcoNewsPage />} />

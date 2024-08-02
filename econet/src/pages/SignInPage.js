@@ -4,6 +4,7 @@ import SignTitle from "../components/SignTitle";
 import SignInput from "../components/SignInput";
 import SignButton from "../components/SignButton";
 import styles from "../styles/SignPage.module.css";
+import { api } from "../api/index";
 
 function SignInPage() {
   const [userInfo, setUserInfo] = useState({
@@ -30,9 +31,20 @@ function SignInPage() {
     navigate("/signup");
   };
 
-  const handleSubmit = (e) => {
+  const { email, password } = userInfo;
+  const handleSubmit = async (e) => {
     e.preventDefault();
     //로그인 정보 받아옴
+    await api.post(
+      "/users/login/",
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    );
+    // 로그인 성공 시 마이페이지로 이동
+    navigate("/mypage");
   };
 
   return (
