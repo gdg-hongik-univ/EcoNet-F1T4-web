@@ -65,7 +65,7 @@ const StyledCheckBox = styled(CheckBox)`
 
   & label {
     margin: 0;
-    font-size: 20px;
+    font-size: 18px;
   }
 `;
 
@@ -88,9 +88,12 @@ function LocationPage() {
           <StyledSelect />
           <CheckBoxList>
             <StyledCheckBox name="bin" value="cloth" title="의류" />
-            <StyledCheckBox name="bin" value="battery" title="건전지" />
             <StyledCheckBox name="bin" value="medicine" title="폐의약품" />
-            <StyledCheckBox name="bin" value="bulb" title="폐형광등" />
+            <StyledCheckBox
+              name="bin"
+              value="batterybulb"
+              title="폐건전지, 폐형광등"
+            />
           </CheckBoxList>
           <ToThrowAwayMethodPage>
             자세한 배출 방법이 궁금하다면?
