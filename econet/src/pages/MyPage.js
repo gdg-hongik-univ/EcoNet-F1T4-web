@@ -1,7 +1,10 @@
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { getProfile } from "../api/getprofile"; // 경로가 올바른지 확인
 import MyComments from "../components/MyComments";
 import MyPosts from "../components/MyPosts";
 import UserProfile from "../components/UserProfile";
-import styled from "styled-components";
 
 const MyPageContainer = styled.div`
   display: flex;
@@ -10,7 +13,6 @@ const MyPageContainer = styled.div`
   text-align: center;
 `;
 
-// 자기소개
 const UserIntro = styled.p`
   width: 400px;
   text-align: center;
@@ -18,26 +20,51 @@ const UserIntro = styled.p`
   border: 1px solid #6bddc4;
 `;
 
-const MyContainer = styled.div`
+const MyPostContainer = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
 `;
 
-// 유저 자기소개. 데이터 받아와서 초기화 예정
-const userIntro = `유저 자기소개 유저 자기소개 유저 자기소개 유저 자기소개 유저 자기소개 유저 자기소개 유저 자기소개 유저 자기소개`;
+const Button = styled(Link)`
+  width: 120px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid #6bddc4;
+  font-size: 16px;
+  font-weight: 600;
+`;
 
 export default function MyPage() {
+  const [userProfile, setUserProfile] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getProfile();
+        setUserProfile(data);
+        console.log(data); // 데이터를 콘솔에 출력
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (!userProfile) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <MyPageContainer>
-      <UserProfile userTier={""} userImg={""} userName={"Steve"} />
-      <UserIntro>{userIntro}</UserIntro>
-      <button>계정설정</button>
-      <button>프로필 변경</button>
-      <MyContainer>
-        {/* <MyComments />
-        <MyPosts /> */}
-      </MyContainer>
+      <UserProfile userImg={userProfile.img} userName={userProfile.name} />
+      <UserIntro>{userProfile.intro}</UserIntro>
+      <Button to="/account">계정설정</Button>
+
+      <MyPostContainer>
+        <MyComments />
+        <MyPosts />
+      </MyPostContainer>
     </MyPageContainer>
   );
 }

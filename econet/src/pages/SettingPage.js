@@ -68,10 +68,6 @@ function SettingPage() {
   return (
     <div id="box">
       <Container component="main" maxWidth="xs">
-        <Typography component="h1" variant="h5">
-          프로필 설정
-        </Typography>
-
         <TextField
           label="이메일"
           type="email"
@@ -135,7 +131,7 @@ function SettingPage() {
               />
 
               <Button
-                onClick={handleOpen}
+                onClick={handleClose}
                 type="submit"
                 variant="outlined"
                 color="pointColor"

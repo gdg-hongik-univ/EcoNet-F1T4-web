@@ -4,6 +4,7 @@ import SignTitle from "../components/SignTitle";
 import SignInput from "../components/SignInput";
 import SignButton from "../components/SignButton";
 import styles from "../styles/SignPage.module.css";
+import { api } from "../api";
 
 function SignUpPage() {
   const [userInfo, setUserInfo] = useState({
@@ -26,9 +27,27 @@ function SignUpPage() {
   //   navigate("/signup");
   // };
 
-  const handleSuBmit = (e) => {
+  const handleSuBmit = async (e) => {
     e.preventDefault();
 
+    const { email, password } = userInfo;
+    //회원가입 정보 보냄
+    await api.post("/users/signup/", {
+      email,
+      password,
+    });
+
+    // 회원가입 성공 시 자동으로 마이페이지로 이동
+    await api.post(
+      "/mypage",
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    );
+
+    // 비밀번호 에러 처리
     if (userInfo.password.length < 8) {
       return alert("비밀번호는 8자리 이상으로 해주세요");
     }
@@ -36,7 +55,6 @@ function SignUpPage() {
     if (userInfo.password !== userInfo.passwordconfirm) {
       return alert("비밀번호와 비밀번호 확인이 다릅니다");
     }
-    //회원가입 정보 보냄
   };
 
   return (
