@@ -1,38 +1,35 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { getProfile } from "../api/getprofile";
 
+// 프로필 컨테이너 스타일 정의
 const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
 `;
 
-// 유저 이미지
-const UserImg = styled.img`
-  width: 240px; /* 원하는 크기로 설정하세요 */
-  height: 240px; /* 원하는 크기로 설정하세요 */
+// 프로필 이미지 스타일 정의
+const ProfileImage = styled.img`
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  object-fit: cover; /* 이미지 비율을 유지하면서 크기에 맞춤 */
-  border: 2px solid #000000;
-  display: block; /* 부모 요소의 영향을 받지 않도록 블록 요소로 설정 */
+  border: 2px solid #6bddc4;
+  margin-bottom: 10px;
 `;
 
-// 유저이름
+// 사용자 이름 스타일 정의
 const UserName = styled.h2`
-  width: 160px;
-  height: 40px;
-  background-color: #c4c4c4;
-  border-radius: 16px;
+  font-size: 20px;
+  margin: 0;
 `;
 
-// 유저 프로필 정보를 보여주는 컴포넌트
-// 유저 티어(메달), 유저이름, 프로필사진, 자기소개
+// UserProfile 컴포넌트 정의
 export default function UserProfile({ userImg, userName }) {
+  console.log("UserProfile props:", { userImg, userName }); // 전달된 props를 콘솔에 출력
   return (
     <ProfileContainer>
-      <UserImg src={userImg} alt="유저 이미지" />
+      {/* 사용자 프로필 이미지와 이름 표시 */}
+      <ProfileImage src={userImg} alt="User Profile" />
       <UserName>{userName}</UserName>
     </ProfileContainer>
   );

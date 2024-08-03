@@ -1,34 +1,31 @@
-// README: 내가 쓴 댓글들 나열할 컴포넌트
-
+import React from "react";
 import styled from "styled-components";
 
-// 댓글 담을 테두리 상자
+// 댓글 박스 스타일 정의
 const CommentBox = styled.div`
-  width: 640px;
+  width: 320px;
   height: 80px;
   border-radius: 16px;
   border: 1px solid #6bddc4;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 `;
 
-// 내가 쓴 댓글 하나
+// MyComment 컴포넌트 정의 (댓글 하나를 나타냄)
 function MyComment({ item }) {
-  return (
-    <CommentBox>{`댓글임댓글임댓글임댓글임댓글임댓글임댓글임댓글임`}</CommentBox>
-  );
+  return <CommentBox>{item}</CommentBox>;
 }
 
-// 내가 쓴 댓글 들
-// items 자리에 해당 유저의 댓글 prop 전달
+// MyComments 컴포넌트 정의 (댓글 리스트를 나타냄)
 export default function MyComments({ items }) {
   return (
-    <ul>
-      {items.map((item) => {
-        return (
-          <li>
-            <MyComment item={item} />
-          </li>
-        );
-      })}
-    </ul>
+    <div>
+      {items.map((item, index) => (
+        <MyComment key={index} item={item} />
+      ))}
+    </div>
   );
 }

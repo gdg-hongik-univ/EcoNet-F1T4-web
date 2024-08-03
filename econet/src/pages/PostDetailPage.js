@@ -7,8 +7,8 @@ const PostDetailContainer = styled.div`
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
-  max-width: 800px;
-  margin: 20px auto;
+  max-width: 1024px;
+  margin: 80px auto;
   font-family: Arial, sans-serif;
 `;
 
@@ -16,7 +16,7 @@ const PostDetailContainer = styled.div`
 const PostHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 32px;
 `;
 
 // 모임명, 모임 주제, 활동 범위, 활동 지역 스타일을 정의합니다.
@@ -34,7 +34,7 @@ const PostDescription = styled.div`
   width: 100%;
   height: 100px;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 32px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #f9f9f9;
@@ -42,7 +42,7 @@ const PostDescription = styled.div`
 
 // 모임 링크 섹션 스타일을 정의합니다.
 const PostLink = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   a {
     color: #56d8bc;
     text-decoration: none;
@@ -56,7 +56,7 @@ const PostLink = styled.div`
 const PostActions = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 
   & > button {
     margin-left: 10px;
@@ -78,19 +78,19 @@ const PostComments = styled.div`
 // 댓글 헤더 스타일을 정의합니다.
 const CommentsHeader = styled.div`
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 32px;
 `;
 
 // 댓글 리스트 스타일을 정의합니다.
 const CommentsList = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 32px;
 `;
 
 // 개별 댓글 스타일을 정의합니다.
 const Comment = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 32px;
   padding: 10px;
   border: 1px solid #eee;
   border-radius: 4px;
@@ -99,7 +99,7 @@ const Comment = styled.div`
 // 댓글 닉네임 스타일을 정의합니다.
 const CommentNickname = styled.div`
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 `;
 
 // 댓글 텍스트 스타일을 정의합니다.
@@ -117,7 +117,7 @@ const CommentInput = styled.div`
 
 // 입력 필드 스타일을 정의합니다.
 const Input = styled.input`
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -145,8 +145,6 @@ const LikeButton = styled.button`
 `;
 
 const PostDetailPage = () => {
-  // useState 훅을 사용하여 상태를 관리합니다.
-
   // 전체 댓글 상태
   const [comments, setComments] = useState([
     { nickname: "닉네임1", text: "댓글 내용입니다." },
