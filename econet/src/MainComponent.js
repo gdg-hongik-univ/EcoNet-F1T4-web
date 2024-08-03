@@ -15,6 +15,7 @@ import AccountSettingPage from "./pages/AccountSettingPage.js";
 import MyPage from "./pages/MyPage.js";
 import App from "./components/App";
 import GarbageDisposalPage from "./pages/GarbageDisposalPage.js";
+import PostDetailPage from "./pages/PostDetailPage.js";
 
 function MainComponent() {
   return (
@@ -49,6 +50,9 @@ function MainComponent() {
             </Route>
             <Route path="account">
               <Route index element={<AccountSettingPage />} />
+            </Route>
+            <Route path="detail">
+              <Route index element={<PostDetailPage />} />
             </Route>
           </Route>
         </Routes>
