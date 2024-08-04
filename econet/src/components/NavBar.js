@@ -1,36 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isLoggedInState } from "../atom/atoms";
 import { logoutUser } from "../api/logout";
-import { Link } from "react-router-dom"; // Link를 사용하여 내비게이션을 처리합니다.
+import { Link, useNavigate } from "react-router-dom";
 
 // Styled Components
 const NavBarContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: white; /* 네비게이션 바 배경색 흰색으로 설정 */
+  background-color: white;
   padding: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05); /* 약간의 그림자 추가 */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
 `;
 
 const NavBarInner = styled.div`
   display: flex;
-
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px; /* 좌우 여백 추가 */
+  padding: 0 20px;
 `;
 
 const Brand = styled(Link)`
-  display: flex;
-  align-items: center;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 700;
-  font-size: 14px;
-  color: #58d7bc; /* 브랜드 텍스트 색상 */
+  font-size: 24px;
+  color: #58d7bc !important;
+  position: relative;
+  right: 120px;
   text-decoration: none;
   &:hover {
     text-decoration: none;
@@ -39,39 +38,46 @@ const Brand = styled(Link)`
 
 const Menu = styled.div`
   display: flex;
-  gap: 30px; /* 메뉴 항목 간의 간격 조정 */
+  gap: 30px;
 `;
 
 const MenuItem = styled(Link)`
-  color: white;
+  margin: 8px;
+  color: black;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
   &:hover {
-    text-decoration: none;
+    color: #6bddc4;
   }
 `;
 
-const AuthButtons = styled.div`
+const AuthButtonContainer = styled.div`
   display: flex;
-  gap: 20px; /* 로그인 및 회원가입 버튼 간의 간격 조정 */
+  margin: 0 16px;
+  position: relative;
+  left: 120px;
+  gap: 20px;
 `;
 
 const AuthButton = styled(Link)`
   color: white;
   background-color: #58d7bc;
   text-decoration: none;
-  font-size: 12px;
-  padding: 5px 10px;
+  font-size: 16px;
+  padding: 4px 12px;
   border-radius: 4px;
   transition: background-color 0.3s, color 0.3s;
+  &:hover {
+    color: #ffffff;
+  }
 `;
 
 const Button = styled.button`
   color: black;
   background-color: #58d7bc;
   border: none;
-  font-size: 12px;
-  padding: 5px 10px;
+  font-size: 16px;
+  padding: 4px 12px;
   border-radius: 4px;
   transition: background-color 0.3s, color 0.3s;
   cursor: pointer;
@@ -81,15 +87,28 @@ const Button = styled.button`
 const NavBar = ({ className }) => {
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
+  const navigate = useNavigate();
+
+  // useEffect 추가: localStorage에서 토큰을 확인하고 로그인 상태를 설정
+  useEffect(() => {
+    const accessToken = localStorage.getItem("access_token");
+    const refreshToken = localStorage.getItem("refresh_token");
+
+    if (accessToken && refreshToken) {
+      setIsLoggedIn(true);
+    }
+  }, [setIsLoggedIn]);
 
   const handleLogout = async () => {
     try {
       await logoutUser();
       setIsLoggedIn(false);
+      navigate("/");
     } catch (error) {
       console.error("로그아웃 중 오류 발생:", error);
     }
   };
+
   return (
     <NavBarContainer className={className}>
       <NavBarInner>
@@ -100,11 +119,11 @@ const NavBar = ({ className }) => {
           <MenuItem to="/econews">환경 뉴스</MenuItem>
           <MenuItem to="/location">배출함 위치</MenuItem>
         </Menu>
-        <AuthButtons>
+        <AuthButtonContainer>
           {isLoggedIn ? (
             <>
               <Button onClick={handleLogout}>로그아웃</Button>
-              <AuthButton to="/mypage">계정 설정</AuthButton>
+              <AuthButton to="/mypage">마이페이지</AuthButton>
             </>
           ) : (
             <>
@@ -112,7 +131,7 @@ const NavBar = ({ className }) => {
               <AuthButton to="/signup">회원가입</AuthButton>
             </>
           )}
-        </AuthButtons>
+        </AuthButtonContainer>
       </NavBarInner>
     </NavBarContainer>
   );
