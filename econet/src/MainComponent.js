@@ -9,6 +9,7 @@ import SignUpPage from "./pages/SignUpPage.js";
 import SettingPage from "./pages/SettingPage";
 import TodayPage from "./pages/TodayPage";
 import LocationPage from "./pages/LocationPage.js";
+import BinInfoPage from "./pages/BinInfoPage.js";
 import EcoNewsPage from "./pages/EcoNewsPage.js";
 import AccountSettingPage from "./pages/AccountSettingPage.js";
 import MyPage from "./pages/MyPage.js";
@@ -37,6 +38,9 @@ function MainComponent() {
             </Route>
             <Route path="location">
               <Route index element={<LocationPage />} />
+            </Route>
+            <Route path="bininfo">
+              <Route index element={<BinInfoPage />} />
             </Route>
             <Route path="garbage">
               <Route index element={<GarbageDisposalPage />} />

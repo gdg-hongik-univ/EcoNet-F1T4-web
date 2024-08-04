@@ -8,8 +8,7 @@ function Map({ className }) {
     // 네이버 지도 옵션 선택
     const mapOptions = {
       // 지도의 초기 중심 좌표
-      center: new naver.maps.LatLng(37.5666103, 126.9783882),
-      logoControl: false, // 네이버 로고 표시 X
+      center: new naver.maps.LatLng(37.5585259, 126.9157857),
       mapDataControl: false, // 지도 데이터 저작권 컨트롤 표시 X
       scaleControl: true, // 지도 축척 컨트롤의 표시 여부
       tileDuration: 200, // 지도 타일을 전환할 때 페이드 인 효과의 지속 시간(밀리초)
