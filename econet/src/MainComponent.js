@@ -9,11 +9,13 @@ import SignUpPage from "./pages/SignUpPage.js";
 import SettingPage from "./pages/SettingPage";
 import TodayPage from "./pages/TodayPage";
 import LocationPage from "./pages/LocationPage.js";
+import BinInfoPage from "./pages/BinInfoPage.js";
 import EcoNewsPage from "./pages/EcoNewsPage.js";
 import AccountSettingPage from "./pages/AccountSettingPage.js";
 import MyPage from "./pages/MyPage.js";
 import App from "./components/App";
 import GarbageDisposalPage from "./pages/GarbageDisposalPage.js";
+import PostDetailPage from "./pages/PostDetailPage.js";
 
 function MainComponent() {
   return (
@@ -37,6 +39,9 @@ function MainComponent() {
             <Route path="location">
               <Route index element={<LocationPage />} />
             </Route>
+            <Route path="bininfo">
+              <Route index element={<BinInfoPage />} />
+            </Route>
             <Route path="garbage">
               <Route index element={<GarbageDisposalPage />} />
             </Route>
@@ -48,6 +53,9 @@ function MainComponent() {
             </Route>
             <Route path="account">
               <Route index element={<AccountSettingPage />} />
+            </Route>
+            <Route path="detail">
+              <Route index element={<PostDetailPage />} />
             </Route>
           </Route>
         </Routes>
