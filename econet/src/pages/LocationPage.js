@@ -55,12 +55,12 @@ const StyledCheckBox = styled(CheckBox)`
   display: flex;
   align-items: center;
   border-bottom: 2px solid #c8c8c8;
-  padding: 10px 0;
+  padding: 10px 0 12px;
 
   & input {
     width: 18px;
     height: 18px;
-    margin: 2px 10px 0 15px;
+    margin: 2px 10px 0 14px;
   }
 
   & label {
