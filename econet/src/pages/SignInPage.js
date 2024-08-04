@@ -4,6 +4,9 @@ import SignTitle from "../components/SignTitle";
 import SignInput from "../components/SignInput";
 import SignButton from "../components/SignButton";
 import styles from "../styles/SignPage.module.css";
+import { signinUser } from "../api/signin";
+import { useSetRecoilState } from "recoil";
+import { isLoggedInState } from "../atom/atoms"; // Recoil 상태 가져오기'
 
 function SignInPage() {
   const [userInfo, setUserInfo] = useState({
@@ -25,18 +28,34 @@ function SignInPage() {
     userInfo.password.length >= 8;
 
   const navigate = useNavigate();
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState); // Recoil 상태 설정 함수
 
   const goSignUpPage = () => {
     navigate("/signup");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    //로그인 정보 받아옴
+
+    signinUser(userInfo.email, userInfo.password)
+      .then((data) => {
+        if (data) {
+          setIsLoggedIn(true); // 로그인 성공 시 상태를 true로 설정
+          navigate("/");
+        } else {
+          throw new Error(
+            "로그인 실패: 서버에서 유효한 응답을 받지 못했습니다."
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("로그인 에러:", error.message || error);
+        alert(error.message);
+      });
   };
 
   return (
-    <div className={styles.sign_box} onChange={handleUserInfoChange}>
+    <div className={styles.sign_box}>
       <SignTitle title="로그인" />
       <form className={styles.sign_form} onSubmit={handleSubmit}>
         <SignInput
@@ -45,6 +64,7 @@ function SignInPage() {
           value={userInfo.email}
           name="email"
           placeholder="이메일을 입력하세요"
+          onChange={handleUserInfoChange}
         />
         <SignInput
           type="password"
@@ -52,6 +72,7 @@ function SignInPage() {
           value={userInfo.password}
           name="password"
           placeholder="비밀번호를 입력하세요"
+          onChange={handleUserInfoChange}
         />
         <SignButton title="로그인" disabled={!isInvalid} />
       </form>

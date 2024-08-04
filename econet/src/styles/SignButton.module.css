@@ -10,3 +10,12 @@
   background-color: #6bddc4;
   color: #ffffff;
 }
+
+.sign_button.active {
+  background-color: #6bddc4; /* 활성화된 버튼의 색상 */
+}
+
+.sign_button.disabled {
+  background-color: #d9d9d9; /* 비활성화된 버튼의 색상 */
+  cursor: not-allowed;
+}
