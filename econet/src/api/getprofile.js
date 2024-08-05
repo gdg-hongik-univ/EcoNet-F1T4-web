@@ -4,7 +4,7 @@ import { api } from "../api/index";
 export const getProfile = async () => {
   try {
     const accessToken = localStorage.getItem("access_token");
-    const response = await api.get("/mypage", {
+    const response = await api.get("/users/mypage", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
