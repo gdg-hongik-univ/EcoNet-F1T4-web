@@ -16,6 +16,7 @@ import MyPage from "./pages/MyPage.js";
 import App from "./components/App";
 import GarbageDisposalPage from "./pages/GarbageDisposalPage.js";
 import PostDetailPage from "./pages/PostDetailPage.js";
+import PostMakePage from "./pages/PostMakePage.js";
 
 function MainComponent() {
   return (
@@ -56,6 +57,9 @@ function MainComponent() {
             </Route>
             <Route path="detail">
               <Route index element={<PostDetailPage />} />
+            </Route>
+            <Route path="postmake">
+              <Route index element={<PostMakePage />} />
             </Route>
           </Route>
         </Routes>

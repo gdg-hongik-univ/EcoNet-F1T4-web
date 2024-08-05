@@ -11,7 +11,7 @@ const StyledComment = styled.div`
   width: 100%;
   border-bottom: 2px solid #c8c8c8;
   padding: 18px 28px;
-  font-size: 16px;
+  font-size: 15px;
 `;
 
 function LocationCommentList({ comments }) {

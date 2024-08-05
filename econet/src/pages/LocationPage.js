@@ -87,12 +87,16 @@ function LocationPage() {
         <SideBar>
           <StyledSelect />
           <CheckBoxList>
-            <StyledCheckBox name="bin" value="cloth" title="의류" />
-            <StyledCheckBox name="bin" value="medicine" title="폐의약품" />
+            <StyledCheckBox name="bin" value="cloth" title="의류 수거함" />
+            <StyledCheckBox
+              name="bin"
+              value="medicine"
+              title="폐의약품 수거함"
+            />
             <StyledCheckBox
               name="bin"
               value="batterybulb"
-              title="폐건전지, 폐형광등"
+              title="폐건전지, 폐형광등 수거함"
             />
           </CheckBoxList>
           <ToThrowAwayMethodPage>
