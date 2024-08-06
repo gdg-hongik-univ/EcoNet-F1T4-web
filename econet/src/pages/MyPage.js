@@ -33,8 +33,8 @@ const MyPostContainer = styled.div`
 // 계정 설정 버튼 스타일 정의
 const Button = styled(Link)`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 80px;
+  right: -40px;
   width: 120px;
   height: 40px;
   text-align: center;
