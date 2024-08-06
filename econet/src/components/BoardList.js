@@ -7,7 +7,46 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%; // 부모 컨테이너의 너비를 100%로 설정
+  max-width: 700px; // 필요한 경우 최대 너비를 설정
+  margin: auto; // 화면 가운데 정렬
 `;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between; // 버튼을 오른쪽에 정렬하기 위해 space-between 사용
+  align-items: center;
+  position: relative;
+  width: 100%;
+  padding: 10px 0;
+`;
+
+const Title = styled.h2`
+  margin: 0;
+  flex-grow: 1;
+  text-align: center; // 제목을 가운데 정렬
+`;
+
+const ButtonContainer = styled.div`
+  flex-shrink: 0; // 버튼 컨테이너가 줄어들지 않도록 설정
+`;
+
+const CreateButton = styled.button`
+  padding: 10px 20px;
+  background-color: #58d7bc;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 600;
+`;
+
+const commonColumnProps = {
+  sortable: false,
+  resizable: false,
+  headerAlign: "center",
+  cellClassName: "centeredCell",
+};
 
 // 열 정의
 const columns = [
@@ -15,43 +54,32 @@ const columns = [
     field: "topic",
     headerName: "모임주제",
     width: 150,
-    sortable: false,
-    resizable: false,
-    headerAlign: "center",
+    ...commonColumnProps,
   },
   {
     field: "name",
     headerName: "모임명",
     width: 150,
-    sortable: false,
-    resizable: false,
-    cellClassName: "clickable",
-    headerAlign: "center",
+    ...commonColumnProps,
   },
   {
     field: "scope",
     headerName: "활동범위",
     width: 180,
-    sortable: false,
-    resizable: false,
-    headerAlign: "center",
+    ...commonColumnProps,
   },
   {
     field: "likes",
     headerName: "좋아요",
     type: "number",
-    width: 100,
-    sortable: false,
-    resizable: false,
-    headerAlign: "center",
+    width: 70,
+    ...commonColumnProps,
   },
   {
     field: "status",
     headerName: "현황",
-    width: 150,
-    sortable: false,
-    resizable: false,
-    headerAlign: "center",
+    width: 70,
+    ...commonColumnProps,
   },
 ];
 
@@ -67,81 +95,37 @@ const rows = [
   },
   {
     id: 2,
-    topic: "Fitness Group",
-    name: "Fit & Fun",
-    scope: "Exercise & Wellness",
-    likes: 120,
+    topic: "Book book",
+    name: "Book Lovers",
+    scope: "Reading & Discussions",
+    likes: 150,
     status: "Active",
-  },
-  {
-    id: 3,
-    topic: "Cooking Class",
-    name: "Master Chefs",
-    scope: "Cooking & Recipes",
-    likes: 80,
-    status: "Inactive",
-  },
-  {
-    id: 4,
-    topic: "Tech Talks",
-    name: "Tech Enthusiasts",
-    scope: "Technology & Innovations",
-    likes: 200,
-    status: "Active",
-  },
-  {
-    id: 5,
-    topic: "Travel Buddies",
-    name: "Wanderlust",
-    scope: "Travel & Adventures",
-    likes: 90,
-    status: "Inactive",
-  },
-  {
-    id: 6,
-    topic: "Art Club",
-    name: "Creative Minds",
-    scope: "Art & Exhibitions",
-    likes: 110,
-    status: "Active",
-  },
-  {
-    id: 7,
-    topic: "Music Lovers",
-    name: "Melody Makers",
-    scope: "Music & Performances",
-    likes: 140,
-    status: "Active",
-  },
-  {
-    id: 8,
-    topic: "Language Exchange",
-    name: "Global Speakers",
-    scope: "Language Learning",
-    likes: 75,
-    status: "Active",
-  },
-  {
-    id: 9,
-    topic: "Gaming",
-    name: "Game On",
-    scope: "Video Games",
-    likes: 160,
-    status: "Inactive",
   },
 ];
 
 export default function BoardList() {
   const handleCellClick = (params) => {
-    // 클릭 가능한 셀의 열만 클릭 이벤트 처리
     if (params.field === "name") {
-      alert(`Clicked on ${params.row.name}`);
+      alert(`클릭하면 모임 상세 페이지로 이동`);
+      // navigate 함수 추가해야 함
     }
+  };
+
+  const handleCreateButtonClick = () => {
+    alert("클릭하면 모임 만들기 페이지로 이동");
+    // navigate 함수 추가해야 함
   };
 
   return (
     <Container>
-      <h2>모임 게시판 - 목록</h2>
+      <HeaderContainer>
+        <Title>모임 게시판 - 목록</Title>
+        <ButtonContainer>
+          <CreateButton onClick={handleCreateButtonClick}>
+            모임 만들기
+          </CreateButton>
+        </ButtonContainer>
+      </HeaderContainer>
       <StyledBoardList
         rows={rows}
         columns={columns}

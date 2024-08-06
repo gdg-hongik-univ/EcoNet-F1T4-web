@@ -3,6 +3,19 @@ import styled from "styled-components";
 
 // 스타일 정의
 const StyledBoardList = styled(DataGrid)`
+  width: 700px;
+
+  /* 셀 포커스 스타일 제거 */
+  .MuiDataGrid-cell:focus {
+    outline: none; /* 포커스 상태에서 테두리 제거 */
+    box-shadow: none; /* 포커스 상태에서 그림자 제거 */
+  }
+
+  .MuiDataGrid-columnHeader:focus {
+    outline: none; /* 포커스 상태에서 테두리 제거 */
+    box-shadow: none; /* 포커스 상태에서 그림자 제거 */
+  }
+
   .MuiDataGrid-columnSeparator {
     display: none; /* 열 크기 조정 핸들 숨기기 */
   }
@@ -19,6 +32,12 @@ const StyledBoardList = styled(DataGrid)`
   .MuiDataGrid-columnHeader {
     user-select: none; /* 열 제목의 텍스트 선택 방지 */
     text-align: center; /* 열 제목 중앙 정렬 */
+  }
+
+  .centeredCell {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 셀 내용을 중앙 정렬 */
   }
 
   .MuiDataGrid-footer {
