@@ -1,4 +1,7 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { isLoggedInState } from "../atom/atoms";
 import styled from "styled-components";
 import StyledBoardList from "../styles/StyledBoardList";
 
@@ -104,16 +107,24 @@ const rows = [
 ];
 
 export default function BoardList() {
+  const navigate = useNavigate(); // useNavigate 훅 사용
+  const isLoggedIn = useRecoilValue(isLoggedInState); // Recoil 상태 읽기
+
   const handleCellClick = (params) => {
     if (params.field === "name") {
-      alert(`클릭하면 모임 상세 페이지로 이동`);
-      // navigate 함수 추가해야 함
+      // 클릭된 셀의 데이터를 사용하여 경로를 설정
+      // const { id } = params.row; // 예시로 id와 name을 사용
+      //   navigate(`/board/detail/${id}`); // `/board/detail/${id}` 경로로 이동
+      navigate(`/board/detail/`);
     }
   };
 
   const handleCreateButtonClick = () => {
-    alert("클릭하면 모임 만들기 페이지로 이동");
-    // navigate 함수 추가해야 함
+    if (isLoggedIn) {
+      navigate("/board/postmake");
+    } else {
+      alert("로그인 후 사용 가능합니다.");
+    }
   };
 
   return (
