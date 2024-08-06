@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import LineInput from "../components/LineInput";
+// import { useRecoilValue } from "recoil";
+// import { isLoggedInState } from "../atom/atoms";
 import { useState } from "react";
+import { postMake } from "../api/postmake";
 import Radio from "../components/Radio";
 
 const Title = styled.div`
@@ -141,11 +144,13 @@ const SubmitButton = styled.button`
 `;
 
 function PostMakePage() {
+  // const isLoggedIn = useRecoilValue(isLoggedInState); // Recoil 상태 읽기
+
   const [clubInfo, setClubInfo] = useState({
     name: "",
     subject: "",
     chat_link: "",
-    activity_scope: "online",
+    activity_scope: "on",
     status: "on",
     location: "",
     description: "",
@@ -160,10 +165,16 @@ function PostMakePage() {
     console.log(clubInfo);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //서버로 전송
+    try {
+      const result = await postMake(clubInfo); // 폼 데이터 서버로 전송
+      alert("모임이 성공적으로 등록되었습니다.");
+      console.log(result); // 서버 응답 데이터
+    } catch (error) {
+      alert(error.message); // 에러 메시지 표시
+    }
   };
 
   return (
