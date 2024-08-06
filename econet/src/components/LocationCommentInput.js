@@ -32,8 +32,7 @@ function LocationCommentInput() {
     content: "",
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(true);
-
+  const isSubmitting = comments.content.length == 0;
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -50,11 +49,6 @@ function LocationCommentInput() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     handleChange(name, value);
-    if (comments.content.length < 2) {
-      setIsSubmitting(true);
-    } else {
-      setIsSubmitting(false);
-    }
   };
 
   return (

@@ -17,9 +17,9 @@ const LogoImg = styled.img`
 `;
 // EcoNet 로고
 const Logo = styled.text`
-  font-size: 80px;
-  color: #56d8bc;h 
-  margin: 80px 0 160px;
+  font-size: 96px;
+  color: #56d8bc;
+  margin: 20px 0 64px;
   ${LogoImg} {
     margin-right: 8px;
   }
@@ -33,7 +33,7 @@ const IntroductionContainer = styled.div`
 `;
 
 const Introduction = styled.h2`
-  font-size: 48px;
+  font-size: 64px;
   font-weight: 700;
   color: #6bddc4;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), -2px -2px 4px rgba(0, 0, 0, 0.3);
