@@ -16,6 +16,7 @@ import MyPage from "./pages/MyPage.js";
 import App from "./components/App";
 import GarbageDisposalPage from "./pages/GarbageDisposalPage.js";
 import PostDetailPage from "./pages/PostDetailPage.js";
+import BoardListPage from "./pages/BoardListPage.js";
 import PostMakePage from "./pages/PostMakePage.js";
 
 function MainComponent() {
@@ -55,12 +56,10 @@ function MainComponent() {
             <Route path="account">
               <Route index element={<AccountSettingPage />} />
             </Route>
-            <Route path="detail">
-              <Route index element={<PostDetailPage />} />
-            </Route>
-            <Route path="postmake">
-              <Route index element={<PostMakePage />} />
-            </Route>
+            {/* board 경로와 그 하위 경로들 */}
+            <Route path="board" element={<BoardListPage />} />
+            <Route path="board/detail" element={<PostDetailPage />} />
+            <Route path="board/postmake" element={<PostMakePage />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -42,7 +42,7 @@ function SignUpPage() {
     if (userInfo.password !== userInfo.passwordconfirm) {
       return alert("비밀번호와 비밀번호 확인이 다릅니다");
     }
-    
+
     try {
       await signupUser(userInfo.email, userInfo.password, userInfo.nickname);
       navigate("/signin"); // 회원가입 후 로그인 페이지로 이동
