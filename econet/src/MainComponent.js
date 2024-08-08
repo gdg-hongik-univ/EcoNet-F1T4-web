@@ -26,41 +26,6 @@ function MainComponent() {
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<MainPage />} />
-<<<<<<< HEAD
-            <Route path="signin">
-              <Route index element={<SignInPage />} />
-            </Route>
-            <Route path="signup">
-              <Route index element={<SignUpPage />} />
-            </Route>
-            <Route path="setting">
-              <Route index element={<SettingPage />} />
-            </Route>
-            <Route path="today">
-              <Route index element={<TodayPage />} />
-            </Route>
-            <Route path="location">
-              <Route index element={<LocationPage />} />
-            </Route>
-            <Route path="bininfo">
-              <Route index element={<BinInfoPage />} />
-            </Route>
-            <Route path="garbage">
-              <Route index element={<GarbageDisposalPage />} />
-            </Route>
-            <Route path="econews">
-              <Route index element={<EcoNewsPage />} />
-            </Route>
-            <Route path="mypage">
-              <Route index element={<MyPage />} />
-            </Route>
-            <Route path="account">
-              <Route index element={<AccountSettingPage />} />
-            </Route>
-            {/* board 경로와 그 하위 경로들 */}
-            <Route path="board" element={<BoardListPage />} />
-            <Route path="/board/detail/:id" element={<PostDetailPage />} />
-=======
             <Route path="signin" element={<SignInPage />} />
 
             <Route path="signup" element={<SignUpPage />} />
@@ -84,7 +49,6 @@ function MainComponent() {
             {/* board 경로와 그 하위 경로들 */}
             <Route path="board" element={<BoardListPage />} />
             <Route path="board/detail/:id" element={<PostDetailPage />} />
->>>>>>> main
             <Route path="board/postmake" element={<PostMakePage />} />
           </Route>
         </Routes>
