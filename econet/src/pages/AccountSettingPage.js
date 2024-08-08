@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import UserProfile from "../components/UserProfile";
+import { getProfile } from "../api/getprofile";
+import { Button } from "@mui/material";
 
 // 테마 정의
 const theme = {
@@ -23,8 +25,8 @@ const AccountSettingContainer = styled.div`
 // 프로필 컨테이너 스타일 정의
 const ProfileContainer = styled.div`
   position: relative;
-  top: 80px;
-  margin-bottom: 80px;
+  top: 20px;
+  margin-bottom: 20px;
 `;
 
 // 입력 컨테이너 스타일 정의
@@ -78,6 +80,9 @@ const ChangeButton = styled.button`
   cursor: pointer;
   font-family: ${(props) => props.theme.fontFamily};
   font-size: ${(props) => props.theme.fontSize};
+  &:hover {
+    color: #ffffff;
+  }
 `;
 
 // 라벨 스타일 정의
@@ -91,7 +96,7 @@ const Label = styled.label`
 
 // 이메일 필드 스타일 정의 (읽기 전용)
 const EmailField = styled.div`
-  width: 400px;
+  width: 240px;
   height: 56px;
   border: 1px solid #6bddc4;
   border-radius: 5px;
@@ -114,7 +119,38 @@ const Input = styled.input`
 `;
 
 export default function AccountSettingPage() {
+  const [userProfile, setUserProfile] = useState(null); // 사용자 프로필 상태 정의
+  const [loading, setLoading] = useState(true); // 로딩 상태 정의
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getProfile(); // 프로필 데이터 가져오기
+        console.log("유저 프로필 데이터 받아오기 성공:", data); // 콘솔에 데이터 출력
+        setUserProfile(data); // 사용자 프로필 상태 업데이트
+      } catch (error) {
+        console.error("유저 프로필 데이터 받아오기 실패:", error);
+      } finally {
+        setLoading(false); // 로딩 상태 해제
+      }
+    }
+    fetchData(); // 컴포넌트 마운트 시 데이터 가져오기
+  }, []);
+
+  if (loading) {
+    return <h1>Loading...</h1>; // 데이터 로딩 중 표시
+  }
+
+  if (!userProfile) {
+    return (
+      <div>
+        {/* 유저 프로필 정보 로딩 실패시 */}
+        <h1>프로필 데이터를 불러올 수 없습니다.</h1>;
+        <Button to="/account">계정설정</Button>
+      </div>
+    );
+  }
 
   // 모달 열기 함수
   const openModal = () => {
@@ -130,12 +166,15 @@ export default function AccountSettingPage() {
     <ThemeProvider theme={theme}>
       <AccountSettingContainer>
         <ProfileContainer>
-          <UserProfile userTier={""} userImg={""} userName={"Steve"} />
+          <UserProfile
+            userImg={userProfile.profile_picture}
+            userName={userProfile.nickname}
+          />
         </ProfileContainer>
         <InfoContainer>
           <InputContainer>
             <Label>Email :</Label>
-            <EmailField>user@example.com</EmailField>
+            <EmailField>{userProfile.email}</EmailField>
           </InputContainer>
           <InputContainer>
             <Label>PW :</Label>

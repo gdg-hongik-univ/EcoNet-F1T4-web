@@ -26,6 +26,7 @@ function MainComponent() {
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<MainPage />} />
+<<<<<<< HEAD
             <Route path="signin">
               <Route index element={<SignInPage />} />
             </Route>
@@ -59,6 +60,31 @@ function MainComponent() {
             {/* board 경로와 그 하위 경로들 */}
             <Route path="board" element={<BoardListPage />} />
             <Route path="/board/detail/:id" element={<PostDetailPage />} />
+=======
+            <Route path="signin" element={<SignInPage />} />
+
+            <Route path="signup" element={<SignUpPage />} />
+
+            <Route path="setting" element={<SettingPage />} />
+
+            <Route path="today" element={<TodayPage />} />
+
+            <Route path="location" element={<LocationPage />} />
+
+            <Route path="bininfo" element={<BinInfoPage />} />
+
+            <Route path="garbage" element={<GarbageDisposalPage />} />
+
+            <Route path="econews" element={<EcoNewsPage />} />
+
+            <Route path="mypage" element={<MyPage />} />
+
+            <Route path="account" element={<AccountSettingPage />} />
+
+            {/* board 경로와 그 하위 경로들 */}
+            <Route path="board" element={<BoardListPage />} />
+            <Route path="board/detail/:id" element={<PostDetailPage />} />
+>>>>>>> main
             <Route path="board/postmake" element={<PostMakePage />} />
           </Route>
         </Routes>
