@@ -11,6 +11,7 @@ export const getProfile = async () => {
     });
     return response.data;
   } catch (error) {
+    console.error("Error fetching profile:", error.message);
     throw new Error("프로필 정보 받아오기 실패");
   }
 };

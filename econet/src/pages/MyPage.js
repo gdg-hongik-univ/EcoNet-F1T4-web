@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getProfile } from "../api/getprofile"; // getprofile 함수 임포트
 import MyComments from "../components/MyComments"; // MyComments 컴포넌트 임포트
@@ -20,6 +20,8 @@ const UserIntro = styled.p`
   text-align: center;
   border-radius: 16px;
   border: 1px solid #6bddc4;
+  padding: 10px;
+  margin-top: 10px;
 `;
 
 // 게시물 컨테이너 스타일 정의
@@ -61,6 +63,7 @@ const UserProfileWrapper = styled.div`
 export default function MyPage() {
   const [userProfile, setUserProfile] = useState(null); // 사용자 프로필 상태 정의
   const [loading, setLoading] = useState(true); // 로딩 상태 정의
+  const navigate = useNavigate(); // 페이지 리디렉션을 위한 훅
 
   useEffect(() => {
     async function fetchData() {
@@ -70,12 +73,13 @@ export default function MyPage() {
         setUserProfile(data); // 사용자 프로필 상태 업데이트
       } catch (error) {
         console.error("유저 프로필 데이터 받아오기 실패:", error);
+        navigate("/login"); // 로그인 페이지로 리디렉션
       } finally {
         setLoading(false); // 로딩 상태 해제
       }
     }
     fetchData(); // 컴포넌트 마운트 시 데이터 가져오기
-  }, []);
+  }, [navigate]);
 
   if (loading) {
     return <h1>Loading...</h1>; // 데이터 로딩 중 표시
@@ -85,7 +89,7 @@ export default function MyPage() {
     return (
       <div>
         {/* 유저 프로필 정보 로딩 실패시 */}
-        <h1>프로필 데이터를 불러올 수 없습니다.</h1>;
+        <h1>프로필 데이터를 불러올 수 없습니다.</h1>
         <Button to="/account">계정설정</Button>
       </div>
     );
@@ -96,18 +100,22 @@ export default function MyPage() {
       <UserProfileWrapper>
         {/* UserProfile 컴포넌트에 이미지와 이름 전달 */}
         <UserProfile
-          userImg={userProfile.profile_picture}
-          userName={userProfile.nickname}
+          userImg={userProfile.profile_picture} // 이미지 URL
+          userName={userProfile.nickname} // 사용자 이름
         />
-        <UserIntro>{userProfile.intro}</UserIntro>
+        <UserIntro>{userProfile.intro}</UserIntro> {/* 사용자 소개 */}
         <Button to="/account">계정설정</Button>
       </UserProfileWrapper>
-
-      <MyPostContainer>
-        {/* MyPosts와 MyComments 컴포넌트에 데이터 전달 */}
-        <MyPosts items={userProfile.posts || []} />
-        <MyComments items={userProfile.comments || []} />
-      </MyPostContainer>
     </MyPageContainer>
   );
 }
+
+/* 이 부분 수정해야 함.
+ /// MyPosts와 MyComments 컴포넌트에 데이터 전달 
+      <MyPostContainer>
+       
+        <MyPosts items={userProfile.posts || []} />
+        <MyComments items={userProfile.comments || []} />
+      </MyPostContainer>
+
+*/

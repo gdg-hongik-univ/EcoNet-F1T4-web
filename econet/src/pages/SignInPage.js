@@ -7,6 +7,7 @@ import styles from "../styles/SignPage.module.css";
 import { signinUser } from "../api/signin";
 import { useSetRecoilState } from "recoil";
 import { isLoggedInState } from "../atom/atoms"; // Recoil 상태 가져오기'
+import { userState } from "../atom/userAtom";
 
 function SignInPage() {
   const [userInfo, setUserInfo] = useState({
@@ -29,6 +30,7 @@ function SignInPage() {
 
   const navigate = useNavigate();
   const setIsLoggedIn = useSetRecoilState(isLoggedInState); // Recoil 상태 설정 함수
+  const setUser = useSetRecoilState(userState); // Recoil 상태 설정 함수
 
   const goSignUpPage = () => {
     navigate("/signup");
@@ -40,7 +42,12 @@ function SignInPage() {
     signinUser(userInfo.email, userInfo.password)
       .then((data) => {
         if (data) {
-          setIsLoggedIn(true); // 로그인 성공 시 상태를 true로 설정
+          setIsLoggedIn(true);
+          setUser({ id: data.id, email: data.email });
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ id: data.id, email: data.email })
+          );
           navigate("/");
         } else {
           throw new Error(
