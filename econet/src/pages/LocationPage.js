@@ -89,13 +89,27 @@ function LocationPage() {
     navigate("/garbage");
   };
 
+  const [dong, setDong] = useState({
+    latitude: 37.54932,
+    longitude: 126.9579,
+  });
+
+  const handleSelectChange = (e) => {
+    const nextdong = e.target.value.split(",");
+    setDong((dong) => ({
+      ...dong,
+      latitude: nextdong[0],
+      longitude: nextdong[1],
+    }));
+  };
+
   return (
     <>
       <ContentBox>
         <Title>배출함 위치 찾아보기</Title>
-        <StyledMap />
+        <StyledMap lat={dong.latitude} lng={dong.longitude} />
         <SideBar>
-          <StyledSelect />
+          <StyledSelect onChange={handleSelectChange} />
           <CheckBoxList>
             <StyledCheckBox name="bin" value="cloth" title="의류 수거함" />
             <StyledCheckBox
