@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 // 스타일 정의
 const StyledBoardList = styled(DataGrid)`
-  width: 700px;
+  width: 600px;
 
   /* 셀 포커스 스타일 제거 */
   .MuiDataGrid-cell:focus {

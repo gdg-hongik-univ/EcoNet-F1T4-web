@@ -58,7 +58,7 @@ function MainComponent() {
             </Route>
             {/* board 경로와 그 하위 경로들 */}
             <Route path="board" element={<BoardListPage />} />
-            <Route path="board/detail" element={<PostDetailPage />} />
+            <Route path="/board/detail/:id" element={<PostDetailPage />} />
             <Route path="board/postmake" element={<PostMakePage />} />
           </Route>
         </Routes>

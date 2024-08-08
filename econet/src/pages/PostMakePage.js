@@ -4,6 +4,7 @@ import LineInput from "../components/LineInput";
 // import { isLoggedInState } from "../atom/atoms";
 import { useState } from "react";
 import { postMake } from "../api/postmake";
+import { useNavigate } from "react-router-dom";
 import Radio from "../components/Radio";
 
 const Title = styled.div`
@@ -146,12 +147,14 @@ const SubmitButton = styled.button`
 function PostMakePage() {
   // const isLoggedIn = useRecoilValue(isLoggedInState); // Recoil 상태 읽기
 
+  const navigate = useNavigate();
+
   const [clubInfo, setClubInfo] = useState({
     name: "",
     subject: "",
     chat_link: "",
-    activity_scope: "on",
-    status: "on",
+    activity_scope: "online",
+    status: "recruiting",
     location: "",
     description: "",
   });
@@ -162,7 +165,6 @@ function PostMakePage() {
       ...clubInfo,
       [name]: value,
     }));
-    console.log(clubInfo);
   };
 
   const handleSubmit = async (e) => {
@@ -172,6 +174,7 @@ function PostMakePage() {
       const result = await postMake(clubInfo); // 폼 데이터 서버로 전송
       alert("모임이 성공적으로 등록되었습니다.");
       console.log(result); // 서버 응답 데이터
+      navigate("/board");
     } catch (error) {
       alert(error.message); // 에러 메시지 표시
     }
@@ -238,15 +241,16 @@ function PostMakePage() {
             <div className="radios">
               <StyledRadio
                 name="status"
-                value="on"
+                value="recruiting"
                 title="모집중"
+                checked={clubInfo.status === "recruiting"}
                 onChange={handleClubInfoChange}
-                checked={clubInfo.status == "on"}
               />
               <StyledRadio
                 name="status"
-                value="off"
+                value="closed"
                 title="모집마감"
+                checked={clubInfo.status === "closed"}
                 onChange={handleClubInfoChange}
               />
             </div>
