@@ -147,7 +147,7 @@ const SubmitButton = styled.button`
 function PostMakePage() {
   // const isLoggedIn = useRecoilValue(isLoggedInState); // Recoil 상태 읽기
 
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
   const [clubInfo, setClubInfo] = useState({
     name: "",
