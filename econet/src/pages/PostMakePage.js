@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import LineInput from "../components/LineInput";
-// import { useRecoilValue } from "recoil";
-// import { isLoggedInState } from "../atom/atoms";
-import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { isLoggedInState } from "../atom/atoms";
+import { userState } from "../atom/userAtom";
+import { useEffect, useState } from "react";
 import { postMake } from "../api/postmake";
-import { useNavigate } from "react-router-dom";
+import { postUpdate } from "../api/postpatch";
+import { getIdDetail } from "../api/getboarddetail";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Radio from "../components/Radio";
 
 const Title = styled.div`
@@ -145,9 +148,15 @@ const SubmitButton = styled.button`
 `;
 
 function PostMakePage() {
-  // const isLoggedIn = useRecoilValue(isLoggedInState); // Recoil 상태 읽기
-
   const navigate = useNavigate();
+  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const user = useRecoilValue(userState);
+  const location = useLocation();
+
+  // 쿼리 파라미터 추출
+  const query = new URLSearchParams(location.search);
+  const mode = query.get("mode"); // "edit" 또는 null
+  const gatheringpost_id = query.get("id"); // 게시물 ID
 
   const [clubInfo, setClubInfo] = useState({
     name: "",
@@ -159,10 +168,43 @@ function PostMakePage() {
     description: "",
   });
 
+  const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    const fetchPostData = async () => {
+      try {
+        // 서버로부터 데이터 받아오기
+        const data = await getIdDetail(gatheringpost_id);
+
+        // 상태 업데이트
+        setClubInfo({
+          name: data.name || "",
+          subject: data.subject || "",
+          chat_link: data.chat_link || "",
+          activity_scope: data.activity_scope || "online", // 기본값 설정
+          status: data.status || "recruiting", // 기본값 설정
+          location: data.location || "",
+          description: data.description || "",
+        });
+        setIsEditing(true);
+      } catch (error) {
+        // 오류 처리
+        console.error("게시글 로드 실패:", error.message);
+      }
+    };
+
+    // 모드가 'edit'이고 gatheringpost_id가 유효한 경우에만 fetchPostData 호출
+    if (mode === "edit" && gatheringpost_id) {
+      fetchPostData();
+    } else {
+      setIsEditing(false);
+    }
+  }, [mode, gatheringpost_id]);
+
   const handleClubInfoChange = (e) => {
     const { name, value } = e.target;
-    setClubInfo((clubInfo) => ({
-      ...clubInfo,
+    setClubInfo((prevClubInfo) => ({
+      ...prevClubInfo,
       [name]: value,
     }));
   };
@@ -171,18 +213,22 @@ function PostMakePage() {
     e.preventDefault();
 
     try {
-      const result = await postMake(clubInfo); // 폼 데이터 서버로 전송
-      alert("모임이 성공적으로 등록되었습니다.");
-      console.log(result); // 서버 응답 데이터
+      if (isEditing) {
+        await postUpdate(gatheringpost_id, clubInfo);
+        alert("모임이 성공적으로 수정되었습니다.");
+      } else {
+        await postMake(clubInfo);
+        alert("모임이 성공적으로 등록되었습니다.");
+      }
       navigate("/board");
     } catch (error) {
-      alert(error.message); // 에러 메시지 표시
+      alert(error.message);
     }
   };
 
   return (
     <>
-      <Title>모임 게시판</Title>
+      <Title>{isEditing ? "모임 수정하기" : "모임 만들기"}</Title>
       <StyledForm onSubmit={handleSubmit}>
         <OneLineInput
           type="text"
@@ -217,19 +263,21 @@ function PostMakePage() {
                 name="activity_scope"
                 value="online"
                 title="온라인"
-                checked={clubInfo.activity_scope == "online"}
+                checked={clubInfo.activity_scope === "online"}
                 onChange={handleClubInfoChange}
               />
               <StyledRadio
                 name="activity_scope"
                 value="offline"
                 title="오프라인"
+                checked={clubInfo.activity_scope === "offline"}
                 onChange={handleClubInfoChange}
               />
               <StyledRadio
                 name="activity_scope"
                 value="etc"
                 title="기타"
+                checked={clubInfo.activity_scope === "etc"}
                 onChange={handleClubInfoChange}
               />
             </div>
@@ -269,7 +317,9 @@ function PostMakePage() {
           name="description"
           onChange={handleClubInfoChange}
         />
-        <SubmitButton type="submit">모임 만들기</SubmitButton>
+        <SubmitButton type="submit">
+          {isEditing ? "수정 완료" : "모임 만들기"}
+        </SubmitButton>
       </StyledForm>
     </>
   );

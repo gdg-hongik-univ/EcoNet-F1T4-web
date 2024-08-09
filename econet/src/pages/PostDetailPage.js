@@ -1,11 +1,12 @@
 // src/PostDetail.js
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { userState } from "../atom/userAtom";
 import { api } from "../api/index.js";
 import { getIdDetail } from "../api/getboarddetail";
 import { createComment } from "../api/comment";
+import { isLoggedInState } from "../atom/atoms.js";
 import styled from "styled-components";
 
 // 스타일 정의
@@ -59,7 +60,8 @@ const PostActions = styled.div`
   justify-content: flex-end;
   margin-bottom: 20px;
 
-  & > button {
+  /* 기본 버튼 스타일 */
+  & > .post-button {
     margin-left: 10px;
     padding: 8px 12px;
     border: none;
@@ -67,64 +69,9 @@ const PostActions = styled.div`
     color: white;
     border-radius: 4px;
     cursor: pointer;
+    /* 추가적인 스타일 조정 */
+    transition: background-color 0.3s;
   }
-`;
-
-const PostComments = styled.div`
-  border-top: 1px solid #ddd;
-  padding-top: 10px;
-`;
-
-const CommentsHeader = styled.div`
-  font-weight: bold;
-  margin-bottom: 10px;
-`;
-
-const CommentsList = styled.div`
-  margin-bottom: 10px;
-`;
-
-const Comment = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  color: ${(props) => (props.isUserComment ? "#00796b" : "#000")};
-`;
-
-const CommentNickname = styled.div`
-  font-weight: bold;
-  margin-bottom: 5px;
-`;
-
-const CommentText = styled.div`
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 4px;
-`;
-
-const CommentInput = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Input = styled.input`
-  margin-bottom: 5px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const Button = styled.button`
-  align-self: flex-end;
-  padding: 8px 12px;
-  border: none;
-  background-color: #56d8bc;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
 `;
 
 const LikeButton = styled.button`
@@ -178,6 +125,66 @@ const LikeButton = styled.button`
   }
 `;
 
+const PostComments = styled.div`
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+`;
+
+const CommentsHeader = styled.div`
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
+
+const CommentsList = styled.div`
+  margin-bottom: 10px;
+`;
+
+const Comment = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background-color: ${(props) =>
+    props.isUserComment && props.isLoggedIn ? "#f7f6f9" : "#f9f9f9"};
+  color: ${(props) =>
+    props.isUserComment && props.isLoggedIn ? "#3486f3" : "black"};
+`;
+
+const CommentNickname = styled.div`
+  font-weight: bold;
+  margin-bottom: 5px;
+`;
+
+const CommentText = styled.div`
+  padding: 10px;
+  background-color: transparent;
+  border-radius: 4px;
+`;
+
+const CommentInput = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Input = styled.input`
+  margin-bottom: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
+const Button = styled.button`
+  align-self: flex-end;
+  padding: 8px 12px;
+  border: none;
+  background-color: #56d8bc;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
 const BoldText = styled.span`
   font-weight: 700;
 `;
@@ -185,8 +192,8 @@ const BoldText = styled.span`
 const PostDetailPage = () => {
   const { id: gatheringpost_id } = useParams();
   const navigate = useNavigate();
-  const user = useRecoilValue(userState); // Recoil 상태에서 사용자 정보 가져오기
-
+  const [user, setUser] = useRecoilState(userState); // 상태 업데이트 함수 사용
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState); // 상태 업데이트 함수 사용
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
@@ -197,13 +204,21 @@ const PostDetailPage = () => {
       try {
         const data = await getIdDetail(gatheringpost_id);
         setPost(data);
-        setComments(data.comments || []);
+
+        // 서버로부터 받은 댓글 데이터를 가공하여 user_id와 isUserComment 상태 유지
+        const updatedComments = (data.comments || []).map((comment) => ({
+          ...comment,
+          isUserComment: comment.user_id === user.id, // 작성자와 로그인된 사용자가 동일한지 여부 판단
+        }));
+
+        setComments(updatedComments);
       } catch (error) {
         console.error(error);
       }
     };
+
     fetchPostData();
-  }, [gatheringpost_id]);
+  }, [gatheringpost_id, user.id]); // user.id도 의존성 배열에 포함하여 로그인된 사용자 정보가 변경될 때도 데이터를 다시 가져오도록 설정
 
   const handleCommentChange = (e) => setNewComment(e.target.value);
 
@@ -217,14 +232,14 @@ const PostDetailPage = () => {
       try {
         const response = await createComment(gatheringpost_id, {
           content: newComment.trim(),
-          user_id: user.id, // 사용자 ID를 포함
+          user_id: user.id,
         });
 
         setComments([
           ...comments,
           {
             ...response,
-            author: user.id, // 작성자의 ID를 직접 사용
+            author: response.user_id,
             isUserComment: user.id === response.user_id,
           },
         ]);
@@ -239,27 +254,8 @@ const PostDetailPage = () => {
     }
   };
 
-  const handleEdit = async () => {
-    const updatedPost = {
-      name: post.name,
-      subject: post.subject,
-      activity_scope: post.activity_scope,
-      status: post.status,
-      chat_link: post.chat_link,
-      description: post.description,
-      location: post.location,
-    };
-
-    try {
-      const response = await api.patch(
-        `/boards/${gatheringpost_id}/`,
-        updatedPost
-      );
-      setPost(response.data);
-      alert("모임 정보가 수정되었습니다.");
-    } catch (error) {
-      console.error(error);
-    }
+  const handleEdit = () => {
+    navigate(`/board/postmake?mode=edit&id=${gatheringpost_id}`);
   };
 
   const handleDelete = async () => {
@@ -271,6 +267,9 @@ const PostDetailPage = () => {
       console.error(error);
     }
   };
+
+  // 로그인한 사용자와 게시글 작성자 일치 여부
+  const showEditDeleteButtons = isLoggedIn && post.user_id === user.id;
 
   return (
     <PostDetailContainer>
@@ -302,17 +301,29 @@ const PostDetailPage = () => {
       </PostLink>
 
       <PostActions>
-        <button onClick={handleEdit}>수정하기</button>
-        <button onClick={handleDelete}>삭제하기</button>
+        <LikeButton className="like-button">좋아요</LikeButton>
+        {showEditDeleteButtons && (
+          <>
+            <button className="post-button" onClick={handleEdit}>
+              수정하기
+            </button>
+            <button className="post-button" onClick={handleDelete}>
+              삭제하기
+            </button>
+          </>
+        )}
       </PostActions>
 
       <PostComments>
         <CommentsHeader>댓글 {comments.length}</CommentsHeader>
         <CommentsList>
           {comments.map((comment, index) => (
-            <Comment key={index} isUserComment={comment.isUserComment}>
-              <CommentNickname>{comment.author}</CommentNickname>{" "}
-              {/* 작성자의 ID 표시 */}
+            <Comment
+              key={index}
+              isUserComment={comment.isUserComment}
+              isLoggedIn={isLoggedIn}
+            >
+              <CommentNickname>{comment.user_id}</CommentNickname>{" "}
               <CommentText>{comment.content}</CommentText>
             </Comment>
           ))}
@@ -323,12 +334,17 @@ const PostDetailPage = () => {
             placeholder="댓글 내용을 입력해주세요."
             value={newComment}
             onChange={handleCommentChange}
+            disabled={!isLoggedIn} // 로그인 상태에 따라 댓글 입력 필드 비활성화
           />
-          <Button onClick={handleCommentSubmit}>댓글 등록</Button>
+          <Button
+            onClick={handleCommentSubmit}
+            disabled={!isLoggedIn} // 로그인 상태에 따라 댓글 등록 버튼 비활성화
+          >
+            댓글 등록
+          </Button>
         </CommentInput>
         {error && <div style={{ color: "red" }}>{error}</div>}
       </PostComments>
-      <LikeButton>좋아요</LikeButton>
     </PostDetailContainer>
   );
 };
