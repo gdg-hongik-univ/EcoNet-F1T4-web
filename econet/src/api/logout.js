@@ -1,17 +1,6 @@
 import axios from "axios";
 import { api } from "../api/index";
 
-// 토큰 만료 시 임의로 로그아웃 시켜주는 함수
-const forceLogoutUser = () => {
-  console.log("forceLogoutUser 함수 호출");
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("refresh_token");
-  console.log("로그아웃 성공: 토큰이 삭제되었습니다.");
-
-  // 로그인 페이지로 리디렉션
-  window.location.href = "/signin";
-};
-
 // 로그아웃 함수
 export const logoutUser = async () => {
   const refreshToken = localStorage.getItem("refresh_token");
@@ -28,8 +17,8 @@ export const logoutUser = async () => {
       } // 리프레시 토큰을 요청 본문에 포함
     );
     console.log("로그아웃 성공:", response.data);
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+    localStorage.clear(); // 모든 항목 제거
+
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -46,8 +35,9 @@ export const logoutUser = async () => {
             msg.message === "유효하지 않거나 만료된 토큰입니다"
         )
       ) {
-        console.log("토큰 만료: forceLogoutUser 함수 호출 예정");
-        forceLogoutUser();
+        // 토큰 만료 시 강제 로그아웃
+        localStorage.clear();
+        window.location.href = "/signin";
       } else {
         console.error("Axios error:", error.message);
         throw new Error(error.response?.data?.message || "로그아웃 실패");
