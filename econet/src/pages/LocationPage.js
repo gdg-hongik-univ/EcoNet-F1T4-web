@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Map from "../components/Map";
 import Select from "../components/Select";
@@ -69,23 +70,46 @@ const StyledCheckBox = styled(CheckBox)`
   }
 `;
 
-const ToThrowAwayMethodPage = styled.div`
+const ToGarbageDisposalPage = styled.button`
+  border: 0;
+  background-color: transparent;
   position: absolute;
   bottom: 25px;
   right: 20px;
   color: #6bddc4;
   font-size: 15px;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 function LocationPage() {
+  const navigate = useNavigate();
+
+  const goGarbage = () => {
+    navigate("/garbage");
+  };
+
+  const [dong, setDong] = useState({
+    latitude: 37.54932,
+    longitude: 126.9579,
+  });
+
+  const handleSelectChange = (e) => {
+    const nextdong = e.target.value.split(",");
+    setDong((dong) => ({
+      ...dong,
+      latitude: nextdong[0],
+      longitude: nextdong[1],
+    }));
+  };
+
   return (
     <>
       <ContentBox>
         <Title>배출함 위치 찾아보기</Title>
-        <StyledMap />
+        <StyledMap lat={dong.latitude} lng={dong.longitude} />
         <SideBar>
-          <StyledSelect />
+          <StyledSelect onChange={handleSelectChange} />
           <CheckBoxList>
             <StyledCheckBox name="bin" value="cloth" title="의류 수거함" />
             <StyledCheckBox
@@ -99,9 +123,9 @@ function LocationPage() {
               title="폐건전지, 폐형광등 수거함"
             />
           </CheckBoxList>
-          <ToThrowAwayMethodPage>
+          <ToGarbageDisposalPage onClick={goGarbage}>
             자세한 배출 방법이 궁금하다면?
-          </ToThrowAwayMethodPage>
+          </ToGarbageDisposalPage>
         </SideBar>
       </ContentBox>
     </>
