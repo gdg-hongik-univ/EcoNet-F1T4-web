@@ -4,29 +4,25 @@ import styled from "styled-components";
 const EcoNewsContainer = styled.div`
   display: flex;
   gap: 8px;
+  height: 720px;
   flex-direction: column;
   align-items: center;
   border: 2px solid #000000;
+  overflow-y: scroll; // 내용이 넘칠 경우 스크롤
 `;
-// 환경 뉴스를 담을 리스트
+
 export default function EcoNewsList({ news }) {
-  // map 메소드를 이용해서 return 할 예정
-  //   return (
-  //     <ul>
-  //       {news.map(() => {
-  //         return (
-  //           <li>
-  //             <EcoNews imgUrl={""} newsText={""} />
-  //           </li>
-  //         );
-  //       })}
-  //     </ul>
-  //   );
   return (
     <EcoNewsContainer>
-      <EcoNews></EcoNews>
-      <EcoNews></EcoNews>
-      <EcoNews></EcoNews>
+      {news.map((article) => (
+        <EcoNews
+          key={article.id}
+          imgUrl={article.image_url || ""} // 이미지 URL을 전달. 없을 경우 빈 문자열 전달.
+          newsTitle={article.title}
+          date={article.date}
+          url={article.url}
+        />
+      ))}
     </EcoNewsContainer>
   );
 }
