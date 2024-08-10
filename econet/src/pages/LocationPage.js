@@ -109,7 +109,7 @@ function LocationPage() {
 
   const handleCheckChange = (checked, value) => {
     if (checked) {
-      setCheck((prev) => [value, ...prev]);
+      setCheck((prev) => [...prev, value]);
     } else {
       setCheck(check.filter((el) => el !== value));
     }

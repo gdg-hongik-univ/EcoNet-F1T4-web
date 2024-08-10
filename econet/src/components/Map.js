@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { getBins } from "../api/bins";
-import zIndex from "@mui/material/styles/zIndex";
+import batteryimg from "../assets/battery.svg";
+import clothesimg from "../assets/clothes.svg";
+import pillimg from "../assets/pill.svg";
+import cigaretteimg from "../assets/cigarette.svg";
 
 const { naver } = window;
 
@@ -16,18 +19,27 @@ function Map({ lat, lng, bin, className }) {
   const { data: clothes } = useQuery({
     queryKey: ["bin", "의류수거함"],
     queryFn: ({ queryKey }) => getBins(queryKey[1]),
+    staleTime: 60 * 1000 * 10,
+    gcTime: 60 * 1000 * 10,
+    keepPreviousData: true,
   });
   const { data: batterybulb } = useQuery({
     queryKey: ["bin", "폐건전지, 폐형광등 수거함"],
     queryFn: ({ queryKey }) => getBins(queryKey[1]),
+    staleTime: 60 * 1000 * 10,
+    gcTime: 60 * 1000 * 10,
   });
   const { data: medicine } = useQuery({
     queryKey: ["bin", "폐의약품"],
     queryFn: ({ queryKey }) => getBins(queryKey[1]),
+    staleTime: 60 * 1000 * 10,
+    gcTime: 60 * 1000 * 10,
   });
   const { data: cigarette } = useQuery({
     queryKey: ["bin", "담배꽁초"],
     queryFn: ({ queryKey }) => getBins(queryKey[1]),
+    staleTime: 60 * 1000 * 10,
+    gcTime: 60 * 1000 * 10,
   });
 
   const bindata = {
@@ -35,6 +47,13 @@ function Map({ lat, lng, bin, className }) {
     "폐건전지, 폐형광등 수거함": batterybulb,
     폐의약품: medicine,
     담배꽁초: cigarette,
+  };
+
+  const images = {
+    의류수거함: clothesimg,
+    "폐건전지, 폐형광등 수거함": batteryimg,
+    폐의약품: pillimg,
+    담배꽁초: cigaretteimg,
   };
 
   useEffect(() => {
@@ -55,57 +74,56 @@ function Map({ lat, lng, bin, className }) {
       loca.longitude = map.getCenter().x;
     });
 
-    async function addressToCoord(address) {
-      let point = [];
-      await naver.maps.Service.geocode(
-        {
-          query: address,
-        },
-        function (status, response) {
-          if (status === naver.maps.Service.Status.ERROR) {
-            return alert("Something Wrong!");
-          }
+    const markers = [];
+    const infoWindows = [];
 
-          if (response.v2.meta.totalCount === 0) {
-            return alert("totalCount" + response.v2.meta.totalCount);
-          }
+    for (let i of bin) {
+      for (let j of bindata[i]) {
+        const marker = new naver.maps.Marker({
+          map: map,
+          position: new naver.maps.LatLng(j.address[0], j.address[1]),
+          icon: {
+            url: `${images[j.category]}`,
+            size: new naver.maps.Size(35, 35),
+            scaledSize: new naver.maps.Size(35, 35),
+          },
+        });
 
-          const item = response.v2.addresses[0];
-          point = [Number(item.y), Number(item.x)];
-          console.log(point);
-          console.log("p");
-        }
-      );
-      return point;
+        markers.push(marker);
+
+        const infoWindow = new naver.maps.InfoWindow({
+          content: [
+            `<div style="padding: 10px; box-shadow: rgba(0,0,0,0.1) 2px 4px 8px 3px;">`,
+            ` <div style="font-weight: bold; margin-bottom: 5px;">${j.category}</div>`,
+            ` <div style="font-size: 11px; margin-bottom: 5px;">${j.location}</div>`,
+            ` <div style="font-size: 13px;">수거 대상: ${j.acceptible}</div>`,
+            ` <div style="font-size: 13px;">수거 불가: ${j.unacceptible}</div>`,
+
+            `</div>`,
+          ].join(""),
+          anchorSize: {
+            width: 13,
+            height: 15,
+          },
+        });
+
+        infoWindows.push(infoWindow);
+      }
     }
 
-    const markers = [];
+    const getClickHandler = (i) => {
+      return () => {
+        if (infoWindows[i].getMap()) {
+          infoWindows[i].close();
+        } else if (map !== null) {
+          infoWindows[i].open(map, markers[i]);
+        }
+      };
+    };
 
-    // const [x, y] = addressToCoord("서울특별시 마포구 대흥로 40");
-    // console.log(addressToCoord("서울특별시 마포구 대흥로 40"));
-    // console.log("마");
-    // console.log(x);
-    // console.log("x");
-    const marker = new naver.maps.Marker({
-      map: map,
-      position: new naver.maps.LatLng(37.557685477130704, 126.960530155717),
-      zIndex: 999,
-    });
-
-    // for (let i of bin) {
-    //   for (let j of bindata[i]) {
-    //     const [la, lo] = addressToCoord(j.location);
-
-    //     const marker = new naver.maps.Marker({
-    //       map: map,
-    //       position: new naver.maps.LatLng(la, lo),
-    //     });
-    //     console.log(la);
-    //     console.log(lo);
-    //     markers.push(marker);
-    //   }
-    // }
-    //console.log(markers);
+    for (let i = 0; i < markers.length; i++) {
+      naver.maps.Event.addListener(markers[i], "click", getClickHandler(i));
+    }
 
     const nextdong = new naver.maps.LatLng(lat, lng);
     map.panTo(nextdong);
