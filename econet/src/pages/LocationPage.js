@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Map from "../components/Map";
 import Select from "../components/Select";
 import CheckBox from "../components/CheckBox";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const Title = styled.div`
   position: absolute;
@@ -103,24 +105,65 @@ function LocationPage() {
     }));
   };
 
+  const [check, setCheck] = useState([]);
+
+  const handleCheckChange = (checked, value) => {
+    if (checked) {
+      setCheck((prev) => [...prev, value]);
+    } else {
+      setCheck(check.filter((el) => el !== value));
+    }
+  };
+
+  const queryClient = new QueryClient();
+
   return (
     <>
       <ContentBox>
         <Title>배출함 위치 찾아보기</Title>
-        <StyledMap lat={dong.latitude} lng={dong.longitude} />
+        <QueryClientProvider client={queryClient}>
+          <StyledMap lat={dong.latitude} lng={dong.longitude} bin={check} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+
         <SideBar>
           <StyledSelect onChange={handleSelectChange} />
           <CheckBoxList>
-            <StyledCheckBox name="bin" value="cloth" title="의류 수거함" />
             <StyledCheckBox
               name="bin"
-              value="medicine"
-              title="폐의약품 수거함"
+              value="의류수거함"
+              title="의류 수거함"
+              checked={check.includes("의류수거함")}
+              onChange={(e) =>
+                handleCheckChange(e.target.checked, e.target.value)
+              }
             />
             <StyledCheckBox
               name="bin"
-              value="batterybulb"
+              value="폐건전지, 폐형광등 수거함"
               title="폐건전지, 폐형광등 수거함"
+              checked={check.includes("폐건전지, 폐형광등 수거함")}
+              onChange={(e) =>
+                handleCheckChange(e.target.checked, e.target.value)
+              }
+            />
+            <StyledCheckBox
+              name="bin"
+              value="폐의약품"
+              title="폐의약품 수거함"
+              checked={check.includes("폐의약품")}
+              onChange={(e) =>
+                handleCheckChange(e.target.checked, e.target.value)
+              }
+            />
+            <StyledCheckBox
+              name="bin"
+              value="담배꽁초"
+              title="담배꽁초 수거함"
+              checked={check.includes("담배꽁초")}
+              onChange={(e) =>
+                handleCheckChange(e.target.checked, e.target.value)
+              }
             />
           </CheckBoxList>
           <ToGarbageDisposalPage onClick={goGarbage}>
