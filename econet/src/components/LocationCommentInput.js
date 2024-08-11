@@ -1,68 +1,75 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { isLoggedInState } from "../atom/atoms.js";
+import { postBinComment } from "../api/postbincomment"; // postBinComment 함수 임포트
 
-const StyledForm = styled.form`
-  margin-top: 30px;
+const CommentInput = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
   margin-bottom: 100px;
 `;
 
-const StyledInput = styled.input`
-  border: 0;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2.5px 1px rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px;
+const Input = styled.input`
+  margin-bottom: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 `;
 
-const StyledButton = styled.button`
-  float: right;
-  margin-top: 5px;
-  background-color: #6bddc4;
-  color: #ffffff;
-  border: 0;
-  border-radius: 5px;
-  padding: 5px 16px;
+const Button = styled.button`
+  align-self: flex-end;
+  padding: 8px 12px;
+  border: none;
+  background-color: #56d8bc;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
 
   &:disabled {
     background-color: #d5d5d5;
+    cursor: not-allowed;
   }
 `;
 
-function LocationCommentInput() {
-  const [comments, setComments] = useState({
-    content: "",
-  });
+function LocationCommentInput({ binId, onCommentAdded }) {
+  const [content, setContent] = useState("");
+  const [isLoggedIn] = useRecoilState(isLoggedInState); // 상태 업데이트 함수 사용
 
-  const isSubmitting = comments.content.length == 0;
-  const handleSubmit = (e) => {
+  const isSubmitting = content.length === 0;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    //서버로 전송
+    try {
+      await postBinComment(binId, content);
+      setContent(""); // 댓글 전송 후 입력 필드 초기화
+      if (onCommentAdded) {
+        onCommentAdded(); // 댓글 추가 후 콜백 호출 (옵션)
+      }
+    } catch (err) {
+      console.error("Failed to post comment:", err.message);
+      // 에러 처리 로직 추가 가능
+    }
   };
 
-  const handleChange = (name, value) => {
-    setComments((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    handleChange(name, value);
+  const handleChange = (e) => {
+    setContent(e.target.value);
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <StyledInput
+    <CommentInput>
+      <Input
         name="content"
-        value={comments.content}
-        onChange={handleInputChange}
+        value={content}
+        onChange={handleChange}
         placeholder="위치를 설명해주세요.."
+        disabled={!isLoggedIn} // 로그인 상태에 따라 댓글 등록 버튼 비활성화
       />
-      <StyledButton type="submit" disabled={isSubmitting}>
-        등록
-      </StyledButton>
-    </StyledForm>
+      <Button type="submit" onClick={handleSubmit} disabled={isSubmitting}>
+        등록하기
+      </Button>
+    </CommentInput>
   );
 }
 
