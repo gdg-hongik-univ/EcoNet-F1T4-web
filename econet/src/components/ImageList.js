@@ -16,9 +16,9 @@ const StyledImage = styled.img`
 function ImageList({ images }) {
   return (
     <ImageFrame>
-      {images.map((item) => {
-        return <StyledImage key={item.id} src={item.url} alt="이미지" />;
-      })}
+      {images.map((item) => (
+        <StyledImage key={item.picture_id} src={item.picture} alt="이미지" />
+      ))}
     </ImageFrame>
   );
 }

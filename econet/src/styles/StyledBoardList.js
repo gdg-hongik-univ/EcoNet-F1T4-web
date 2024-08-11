@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 // 스타일 정의
 const StyledBoardList = styled(DataGrid)`
-  width: 600px;
+  max-width: 800px;
 
   /* 셀 포커스 스타일 제거 */
   .MuiDataGrid-cell:focus {
@@ -19,10 +19,10 @@ const StyledBoardList = styled(DataGrid)`
   .MuiDataGrid-columnSeparator {
     display: none; /* 열 크기 조정 핸들 숨기기 */
   }
-
-  .MuiDataGrid-cell {
+  f .MuiDataGrid-cell {
     overflow: hidden; /* 셀 내용이 넘치지 않도록 */
     cursor: default; /* 기본 커서로 설정 */
+    text-align: center; /* 셀 내용 중앙 정렬 */
   }
 
   .MuiDataGrid-cell.clickable {
@@ -95,6 +95,16 @@ const StyledBoardList = styled(DataGrid)`
   }
   .MuiDataGrid-columnHeader:focus {
     outline: none;
+  }
+
+  /* 셀 내용을 중앙 정렬 */
+  .MuiDataGrid-cell {
+    overflow: hidden; /* 셀 내용이 넘치지 않도록 */
+    cursor: default; /* 기본 커서 설정 */
+    text-align: center; /* 셀 내용 중앙 정렬 */
+    display: flex;
+    align-items: center; /* 셀 내용 수직 중앙 정렬 */
+    justify-content: center; /* 셀 내용 수평 중앙 정렬 */
   }
 `;
 

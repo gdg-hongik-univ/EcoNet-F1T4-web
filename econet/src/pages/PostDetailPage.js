@@ -7,9 +7,16 @@ import { api } from "../api/index.js";
 import { getIdDetail } from "../api/getboarddetail";
 import { createComment } from "../api/comment";
 import { isLoggedInState } from "../atom/atoms.js";
-import styled from "styled-components";
+import { postBoardLike } from "../api/postlike.js";
+import styled, { keyframes } from "styled-components";
 
 // 스타일 정의
+const fadeInOut = keyframes`
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+`;
+
 const PostDetailContainer = styled.div`
   padding: 20px;
   border: 1px solid #ddd;
@@ -22,6 +29,7 @@ const PostDetailContainer = styled.div`
 const PostHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap; /* 필요에 따라 줄바꿈을 허용 */
   margin-bottom: 10px;
 `;
 
@@ -55,30 +63,43 @@ const PostLink = styled.div`
   }
 `;
 
+// 버튼과 에러 메시지 컨테이너 스타일
 const PostActions = styled.div`
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column; /* 세로로 정렬 */
+  align-items: flex-end; /* 오른쪽으로 정렬 */
   margin-bottom: 20px;
 
-  /* 기본 버튼 스타일 */
-  & > .post-button {
-    margin-left: 10px;
-    padding: 8px 12px;
-    border: none;
-    background-color: #56d8bc;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    /* 추가적인 스타일 조정 */
-    transition: background-color 0.3s;
+  /* 버튼 컨테이너 추가 */
+  .button-container {
+    display: flex;
+    gap: 10px; /* 버튼 사이의 간격 */
+  }
+`;
+
+// 버튼 스타일
+const PostButton = styled.button`
+  padding: 8px 12px;
+  border: none;
+  background-color: #56d8bc;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #45c4a0;
   }
 `;
 
 const LikeButton = styled.button`
   background-color: transparent; /* 버튼 배경을 투명하게 설정 */
-  color: #56d8bc; /* 텍스트 색상을 외곽선 색상으로 설정 */
+  color: ${(props) =>
+    props.disabled
+      ? "#ff69b4"
+      : "#56d8bc"}; /* 좋아요 상태일 때 텍스트 색상 고정 */
   padding: 8px 16px;
-  border: 1px solid #56d8bc; /* 외곽선 색상 설정 */
+  border: 1px solid ${(props) => (props.disabled ? "#ff69b4" : "#56d8bc")}; /* 좋아요 상태일 때 고정된 외곽선 색상 */
   border-radius: 4px;
   cursor: pointer;
   position: relative; /* pseudo-element를 사용할 때 필요 */
@@ -123,6 +144,12 @@ const LikeButton = styled.button`
   &:focus {
     outline: none;
   }
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  margin-top: 10px;
+  animation: ${fadeInOut} 3s ease-in-out;
 `;
 
 const PostComments = styled.div`
@@ -179,10 +206,12 @@ const Button = styled.button`
   align-self: flex-end;
   padding: 8px 12px;
   border: none;
-  background-color: #56d8bc;
+  background-color: ${(props) =>
+    props.disabled ? "#d9d9d9" : "#56d8bc"}; /* 비활성화 상태 배경 색상 */
   color: white;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* 배경 색상과 텍스트 색상 변화에 대한 트랜지션 설정 */
 `;
 
 const BoldText = styled.span`
@@ -198,6 +227,9 @@ const PostDetailPage = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [error, setError] = useState("");
+  const [likes, setLikes] = useState(0); // 좋아요 수 상태 추가
+  const [hasLiked, setHasLiked] = useState(false); // 현재 사용자가 좋아요를 눌렀는지 여부
+  const [showError, setShowError] = useState(false); // 로그인 상태 메시지 표시 여부
 
   useEffect(() => {
     const fetchPostData = async () => {
@@ -212,6 +244,8 @@ const PostDetailPage = () => {
         }));
 
         setComments(updatedComments);
+        setLikes(data.likes); // 좋아요 수 초기화
+        setHasLiked(data.user_has_liked); // 현재 사용자의 좋아요 여부 초기화
       } catch (error) {
         console.error(error);
       }
@@ -226,6 +260,8 @@ const PostDetailPage = () => {
     if (newComment.trim()) {
       if (!user.id) {
         setError("로그인 상태가 아닙니다. 로그인 후 다시 시도해 주세요.");
+        setShowError(true);
+        setTimeout(() => setShowError(false), 3000); // 3초 후 메시지 숨기기
         return;
       }
 
@@ -268,6 +304,26 @@ const PostDetailPage = () => {
     }
   };
 
+  const handleLike = async () => {
+    if (!isLoggedIn) {
+      setError("로그인 후 좋아요를 눌러주세요.");
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000); // 3초 후 메시지 숨기기
+      return;
+    }
+
+    if (hasLiked) return; // 이미 좋아요를 누른 경우 아무 작업도 하지 않음
+
+    try {
+      const response = await postBoardLike(gatheringpost_id);
+      setLikes(response.likes);
+      setHasLiked(true);
+    } catch (error) {
+      setError(error.message || "좋아요 등록에 실패했습니다.");
+      console.error(error);
+    }
+  };
+
   // 로그인한 사용자와 게시글 작성자 일치 여부
   const showEditDeleteButtons = isLoggedIn && post.user_id === user.id;
 
@@ -301,17 +357,18 @@ const PostDetailPage = () => {
       </PostLink>
 
       <PostActions>
-        <LikeButton className="like-button">좋아요</LikeButton>
-        {showEditDeleteButtons && (
-          <>
-            <button className="post-button" onClick={handleEdit}>
-              수정하기
-            </button>
-            <button className="post-button" onClick={handleDelete}>
-              삭제하기
-            </button>
-          </>
-        )}
+        <div className="button-container">
+          <LikeButton onClick={handleLike} disabled={hasLiked}>
+            {hasLiked ? "좋아요" : "좋아요"} {likes}
+          </LikeButton>
+          {showEditDeleteButtons && (
+            <div className="button-container">
+              <PostButton onClick={handleEdit}>수정하기</PostButton>
+              <PostButton onClick={handleDelete}>삭제하기</PostButton>
+            </div>
+          )}
+        </div>
+        {showError && <ErrorMessage>{error}</ErrorMessage>}
       </PostActions>
 
       <PostComments>
@@ -323,7 +380,10 @@ const PostDetailPage = () => {
               isUserComment={comment.isUserComment}
               isLoggedIn={isLoggedIn}
             >
-              <CommentNickname>{comment.user_id}</CommentNickname>{" "}
+              <CommentNickname>
+                {"user_"}
+                {comment.user_id}
+              </CommentNickname>{" "}
               <CommentText>{comment.content}</CommentText>
             </Comment>
           ))}
@@ -343,7 +403,6 @@ const PostDetailPage = () => {
             댓글 등록
           </Button>
         </CommentInput>
-        {error && <div style={{ color: "red" }}>{error}</div>}
       </PostComments>
     </PostDetailContainer>
   );

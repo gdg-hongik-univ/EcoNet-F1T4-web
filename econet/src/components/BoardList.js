@@ -13,7 +13,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%; // 부모 컨테이너의 너비를 100%로 설정
-  max-width: 600px; // 필요한 경우 최대 너비를 설정
+  max-width: 700px; // 필요한 경우 최대 너비를 설정
   margin: auto; // 화면 가운데 정렬
 `;
 
@@ -21,41 +21,78 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between; // 버튼을 오른쪽에 정렬하기 위해 space-between 사용
   align-items: center;
-  position: relative;
-  width: 100%;
+  width: 100%; // 컨테이너의 너비를 100%로 설정
   padding: 10px 0;
 `;
 
-const Title = styled.h2`
-  margin: 0;
-  flex-grow: 1;
-  text-align: center; // 제목을 가운데 정렬
-`;
-
 const ButtonContainer = styled.div`
-  flex-shrink: 0; // 버튼 컨테이너가 줄어들지 않도록 설정
+  display: flex;
+  justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+  width: 100%; /* 버튼 컨테이너가 HeaderContainer의 전체 너비를 차지하도록 설정 */
+  margin-bottom: 5px; /* 아래쪽 여백 */
 `;
 
 const CreateButton = styled.button`
   padding: 10px 20px;
-  background-color: #58d7bc;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 600;
+  background-color: transparent; /* 버튼 배경 색상 */
+  color: #58d7bc; /* 텍스트 색상 */
+  border: 1px solid #58d7bc; /* 버튼 외곽선 색상 */
+  border-radius: 5px; /* 버튼 테두리 둥글기 */
+  cursor: pointer; /* 커서 모양 */
+  font-size: 600; /* 폰트 크기 */
+  position: relative; /* ::after pseudo-element를 사용할 때 필요 */
+  overflow: hidden; /* ::after pseudo-element가 버튼을 넘지 않도록 설정 */
+  transition: color 0.3s, border-color 0.3s, background-color 0.3s; /* 트랜지션 설정 */
+
+  /* 버튼에 hover 효과 추가 */
+  &:hover {
+    color: white;
+    background-color: #58d7bc; /* hover 시 배경 색상 변경 */
+  }
+
+  /* 클릭 시 효과를 추가하기 위해 ::after pseudo-element 사용 */
+  &:active::after {
+    content: ""; /* 내용 없음 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%; /* 오버레이의 크기를 설정 */
+    height: 300%;
+
+    border-radius: 50%; /* 둥근 형태로 설정 */
+    transform: translate(
+      -50%,
+      -50%
+    ); /* 오버레이를 버튼의 중앙에 위치하도록 설정 */
+    transition: opacity 0.3s; /* 오버레이의 투명도 변화에 대한 트랜지션 설정 */
+    opacity: 0; /* 초기 상태에서 오버레이 숨기기 */
+    pointer-events: none; /* 오버레이가 클릭 이벤트를 차단하지 않도록 설정 */
+  }
+
+  /* 클릭 시 오버레이 효과를 보이게 하기 위해 ::after pseudo-element의 opacity 설정 */
+  &:active {
+    color: #fff; /* 클릭 시 텍스트 색상 변경 */
+  }
+
+  &:active::after {
+    opacity: 1; /* 클릭 시 오버레이 보이도록 설정 */
+  }
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const commonColumnProps = {
   sortable: false,
   resizable: false,
   headerAlign: "center",
-  cellClassName: "centeredCell",
+  cellClassName: "centeredCell", // 셀 중앙 정렬 클래스
 };
 
 // 열 정의
 const columns = [
-  { field: "id", headerName: "모임 번호", width: 70, ...commonColumnProps },
+  { field: "id", headerName: "모임 번호", width: 100, ...commonColumnProps },
   {
     field: "subject",
     headerName: "모임주제",
@@ -71,20 +108,20 @@ const columns = [
   {
     field: "activity_scope",
     headerName: "활동범위",
-    width: 70,
+    width: 100,
     ...commonColumnProps,
   },
   {
     field: "likes",
     headerName: "좋아요",
     type: "number",
-    width: 70,
+    width: 100,
     ...commonColumnProps,
   },
   {
     field: "status",
     headerName: "현황",
-    width: 70,
+    width: 100,
     ...commonColumnProps,
   },
 ];
@@ -131,7 +168,6 @@ export default function BoardList() {
   return (
     <Container>
       <HeaderContainer>
-        <Title>모임 게시판 - 목록</Title>
         <ButtonContainer>
           <CreateButton onClick={handleCreateButtonClick}>
             모임 만들기
