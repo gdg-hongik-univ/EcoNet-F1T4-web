@@ -36,7 +36,7 @@ function MainComponent() {
 
             <Route path="location" element={<LocationPage />} />
 
-            <Route path="bininfo" element={<BinInfoPage />} />
+            <Route path="bininfo/:binId" element={<BinInfoPage />} />
 
             <Route path="garbage" element={<GarbageDisposalPage />} />
 

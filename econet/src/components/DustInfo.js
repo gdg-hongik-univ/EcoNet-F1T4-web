@@ -14,10 +14,16 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%; /* 전체 너비를 차지하도록 수정 */
+  max-width: 1300px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 중앙 정렬 */
 `;
 
 const FormContainer = styled.div`
   margin: 20px 0;
+  width: 100%; // FormContainer가 Container 내에서 전체 너비를 차지하게 함
+  max-width: 700px; // 기본 너비 설정
+  margin: 0 auto; // 중앙 정렬
 `;
 
 const StyledButton = styled.button`
