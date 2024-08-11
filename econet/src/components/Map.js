@@ -97,8 +97,8 @@ function Map({ lat, lng, bin, className }) {
             ` <div style="font-weight: bold; margin-bottom: 5px;">${j.category}</div>`,
             ` <div style="font-size: 11px; margin-bottom: 5px;">${j.location}</div>`,
             ` <div style="font-size: 13px;">수거 대상: ${j.acceptible}</div>`,
-            ` <div style="font-size: 13px;">수거 불가: ${j.unacceptible}</div>`,
-
+            ` <div style="font-size: 13px; margin-bottom: 5px;">수거 불가: ${j.unacceptible}</div>`,
+            ` <a style="color:#56D8BC;" href="/bininfo/${j.id}">자세히 알아보기</a>`,
             `</div>`,
           ].join(""),
           anchorSize: {
