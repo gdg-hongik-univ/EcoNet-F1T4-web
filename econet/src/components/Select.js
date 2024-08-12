@@ -5,6 +5,7 @@ const { mapo_districts } = await getDistricts();
 function Select({ onChange, className }) {
   return (
     <select name="dong" onChange={onChange} className={className}>
+      mapo_districts &&
       {mapo_districts.map((item) => {
         const latlng = `${item.latitude},${item.longitude}`;
         return (
