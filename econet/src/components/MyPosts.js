@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // 게시글 리스트 컨테이너 스타일 정의
@@ -31,11 +32,19 @@ const PostBox = styled.div`
   text-align: center;
   padding: 10px;
   box-sizing: border-box; // 패딩 포함 크기 계산
+  &:hover {
+    color: #58d7bc;
+  }
 `;
 
 // MyPost 컴포넌트 정의 (게시글 하나를 나타냄)
 function MyPost({ item }) {
-  return <PostBox>제목: {item.name}</PostBox>; // 게시글name 출력
+  const navigate = useNavigate();
+  const handlePostClick = () => {
+    navigate(`/board/detail/${item.id}`);
+  };
+
+  return <PostBox onClick={handlePostClick}>{item.name}</PostBox>; // 게시글name 출력
 }
 
 // MyPosts 컴포넌트 정의 (게시글 리스트를 나타냄)

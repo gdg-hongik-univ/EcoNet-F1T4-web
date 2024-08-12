@@ -28,6 +28,16 @@ const Container = styled.div`
   align-items: center;
 `;
 
+const LoadingContainer = styled.div`
+  display: flex;
+  width: 1024px;
+  height: 720px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000000;
+`;
+
 export default function EcoNewsPage() {
   const [searchText, setSearchText] = useState("");
   const [domesticNews, setDomesticNews] = useState([]);
@@ -35,6 +45,8 @@ export default function EcoNewsPage() {
   const [loading, setLoading] = useState(true);
   const [domesticPage, setDomesticPage] = useState(1);
   const [worldPage, setWorldPage] = useState(1);
+  const [hasMoreDomestic, setHasMoreDomestic] = useState(true);
+  const [hasMoreWorld, setHasMoreWorld] = useState(true);
 
   const handleSearch = (inputText) => {
     setSearchText(inputText);
@@ -49,8 +61,12 @@ export default function EcoNewsPage() {
         },
       });
       const { hkbs_articles } = response.data;
+
       setDomesticNews((prevNews) => [...prevNews, ...hkbs_articles.data]);
       setDomesticPage((prevPage) => prevPage + 1);
+      if (hkbs_articles.data.length < 10) {
+        setHasMoreDomestic(false); // 더 이상 불러올 뉴스가 없으면 false 설정
+      }
     } catch (error) {
       console.error("Failed to fetch domestic news.", error);
     }
@@ -65,8 +81,12 @@ export default function EcoNewsPage() {
         },
       });
       const { bbc_articles } = response.data;
+
       setWorldNews((prevNews) => [...prevNews, ...bbc_articles.data]);
       setWorldPage((prevPage) => prevPage + 1);
+      if (bbc_articles.data.length < 10) {
+        setHasMoreWorld(false); // 더 이상 불러올 뉴스가 없으면 false 설정
+      }
     } catch (error) {
       console.error("Failed to fetch world news.", error);
     }
@@ -96,6 +116,10 @@ export default function EcoNewsPage() {
 
         setDomesticNews(hkbs_articles.data);
         setWorldNews(bbc_articles.data);
+        setDomesticPage(2); // 검색 후 페이지를 초기화하고 2로 설정
+        setWorldPage(2);
+        setHasMoreDomestic(hkbs_articles.data.length === 10);
+        setHasMoreWorld(bbc_articles.data.length === 10);
       } catch (error) {
         console.error("Failed to fetch search results.", error);
       } finally {
@@ -109,20 +133,36 @@ export default function EcoNewsPage() {
   return (
     <EcoNewsPageContainer>
       <SearchBar onSearch={handleSearch}></SearchBar>
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
-        <EcoNewsListContainer>
-          <Container>
-            <Header>국내 뉴스</Header>
-            <EcoNewsList news={domesticNews} />
-          </Container>
-          <Container>
-            <Header>국제 뉴스</Header>
-            <EcoNewsList news={worldNews} />
-          </Container>
-        </EcoNewsListContainer>
-      )}
+      <EcoNewsListContainer>
+        <Container>
+          <Header>국내 뉴스</Header>
+          {loading ? (
+            <LoadingContainer>
+              <LoadingSpinner />
+            </LoadingContainer>
+          ) : (
+            <EcoNewsList
+              news={domesticNews}
+              fetchMoreNews={fetchDomesticNews}
+              hasMore={hasMoreDomestic}
+            />
+          )}
+        </Container>
+        <Container>
+          <Header>국제 뉴스</Header>
+          {loading ? (
+            <LoadingContainer>
+              <LoadingSpinner />
+            </LoadingContainer>
+          ) : (
+            <EcoNewsList
+              news={worldNews}
+              fetchMoreNews={fetchWorldNews}
+              hasMore={hasMoreWorld}
+            />
+          )}
+        </Container>
+      </EcoNewsListContainer>
       <EcoPartyList />
     </EcoNewsPageContainer>
   );
