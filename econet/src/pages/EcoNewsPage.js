@@ -13,13 +13,14 @@ const EcoNewsPageContainer = styled.div`
 `;
 const EcoNewsListContainer = styled.div`
   display: flex;
-  margin: 0 0 16px 0;
-  gap: 32px;
+  position: relative;
+  bottom: 40px;
+  gap: 64px;
   justify-content: space-around;
 `;
 
 const Header = styled.h1`
-  font-size: 32px;
+  font-size: 28px;
 `;
 
 const Container = styled.div`
@@ -30,8 +31,8 @@ const Container = styled.div`
 
 const LoadingContainer = styled.div`
   display: flex;
-  width: 1024px;
-  height: 720px;
+  width: 560px;
+  height: 360px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
