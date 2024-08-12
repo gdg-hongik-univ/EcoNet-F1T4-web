@@ -6,7 +6,7 @@ import LoadingSpinner from "./LoadingSpinner";
 const EcoNewsContainer = styled.div`
   display: flex;
   gap: 8px;
-  height: 720px;
+  height: 340px;
   flex-direction: column;
   align-items: center;
   border: 2px solid #000000;
@@ -15,8 +15,6 @@ const EcoNewsContainer = styled.div`
 
 const LoadingContainer = styled.div`
   display: flex;
-  width: 1024px;
-  height: 720px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
