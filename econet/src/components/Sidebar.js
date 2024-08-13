@@ -50,6 +50,15 @@ const Sidebar = ({ setSelectedItem }) => {
         <SidebarItem onClick={() => setSelectedItem("furniture")}>
           가구
         </SidebarItem>
+        <SidebarItem onClick={() => setSelectedItem("medicine")}>
+          폐의약품
+        </SidebarItem>
+        <SidebarItem onClick={() => setSelectedItem("clothes")}>
+          의류
+        </SidebarItem>
+        <SidebarItem onClick={() => setSelectedItem("cigarette")}>
+          담배꽁초
+        </SidebarItem>
       </SidebarList>
     </SidebarContainer>
   );
