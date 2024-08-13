@@ -3,7 +3,7 @@ import VideoIcon from "../assets/icons/icons8-video-96.png";
 
 const EcoNewsStyle = styled.div`
   display: flex;
-  width: 520px;
+  width: 720px;
   height: auto;
   margin: 8px;
   align-items: center;
@@ -25,7 +25,7 @@ const NewsContainer = styled.div`
 `;
 
 const NewsTitle = styled.a`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   &:hover {
     color: #6bddc4;
@@ -33,7 +33,7 @@ const NewsTitle = styled.a`
 `;
 
 const NewsDate = styled.p`
-  font-size: 16px;
+  font-size: 20px;
   color: #555;
   margin-top: 8px;
 `;
