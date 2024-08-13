@@ -51,7 +51,7 @@ const Sidebar = ({ setSelectedItem }) => {
           가구
         </SidebarItem>
         <SidebarItem onClick={() => setSelectedItem("medicine")}>
-          폐의약품
+          의약품
         </SidebarItem>
         <SidebarItem onClick={() => setSelectedItem("clothes")}>
           의류
