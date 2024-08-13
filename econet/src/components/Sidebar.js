@@ -20,7 +20,8 @@ const SidebarList = styled.ul`
 
 const SidebarItem = styled.li`
   padding: 15px;
-  font-size: 1.2em;
+  font-size: 1.5em;
+  text-align: center;
   cursor: pointer;
   border-bottom: 1px solid #ddd;
   transition: background-color 0.3s ease;

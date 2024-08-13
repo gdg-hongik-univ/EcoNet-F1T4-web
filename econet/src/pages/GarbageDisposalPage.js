@@ -6,6 +6,7 @@ import { useState } from "react";
 const PageContainer = styled.div`
   display: flex;
   align-items: stretch; /* Align items to stretch to fill container height */
+  gap: 80px;
   padding: 20px; /* Add some padding around the container */
 `;
 
