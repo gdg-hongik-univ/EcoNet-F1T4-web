@@ -7,6 +7,9 @@ const EcoPartyImg = styled.img`
   border-radius: 50%;
   border: 1px solid #000000;
   object-fit: fill;
+  &:hover {
+    border: 2px solid #6bddc4;
+  }
 `;
 // 환경 단체 아이콘 컴포넌트
 // 백엔드 데이터에서 받아온 환경 단체 이미지 url을 prop으로 받아서 렌더링 하는 역할

@@ -3,13 +3,13 @@ import styled from "styled-components";
 
 import GreenPeace from "../assets/icons/Greenpeace_logo.svg.png";
 import FriendOfEarth from "../assets/icons/Friends_of_the_Earth_logo.svg.png";
+import WWF from "../assets/icons/WWF_logo_(Text_only).svg.png";
 
 const EcoPartyListContainer = styled.div`
   display: flex;
   position: relative;
-  bottom: 52px;
+  bottom: 40px;
   gap: 24px;
-
   align-items: center;
 `;
 
@@ -35,9 +35,11 @@ export default function EcoPartyList() {
         partyName={"지구의 벗"}
         partyUrl={"https://www.foei.org/"}
       />
-      <EcoPartyIcon />
-      <EcoPartyIcon />
-      <EcoPartyIcon />
+      <EcoPartyIcon
+        imgSrc={WWF}
+        partyName={"세계자연기금"}
+        partyUrl={"https://www.worldwildlife.org/"}
+      />
     </EcoPartyListContainer>
   );
 }

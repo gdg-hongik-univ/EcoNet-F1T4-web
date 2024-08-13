@@ -31,8 +31,8 @@ const Container = styled.div`
 
 const LoadingContainer = styled.div`
   display: flex;
-  width: 560px;
-  height: 360px;
+  width: 720px;
+  height: 800px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
