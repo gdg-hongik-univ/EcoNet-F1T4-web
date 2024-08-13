@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const ContentContainer = styled.div`
   flex: 1;
-  padding: 30px;
+  padding: 30px 50px;
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -12,15 +12,15 @@ const ContentContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 3em;
+  font-size: 35px;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   color: #333;
   text-align: center;
 `;
 
 const Description = styled.p`
-  font-size: 2em;
+  font-size: 20px;
   line-height: 1.6;
   color: #555;
   text-align: left;
@@ -57,6 +57,21 @@ const contentData = {
     title: "가구",
     description:
       "가구는 지역의 재활용 센터나 특별 수거 서비스를 이용하여 배출하세요. 여전히 사용할 수 있는 가구는 중고 거래 플랫폼을 활용할 수도 있습니다.",
+  },
+  medicine: {
+    title: "의약품",
+    description:
+      "알약의 경우 포장지를 일반쓰레기로 버리고 알약만 따로 모아야 합니다. 가루약의 경우 포장지를 뜯지 않고 그대로 모아 배출하는 것이 좋습니다. 물약이나 시럽형으로 된 액체류는 병에 모아 새지 않게 밀봉해야 합니다. 또 연고와 안약, 코 스프레이, 천식 흡입제와 같이 특수 용기에 보관된 약은 용기 그대로 전용 수거함에 버리면 됩니다.",
+  },
+  clothes: {
+    title: "의류",
+    description:
+      "의류수거함의 수거 품목을 확인하고 해당하는 품목을 넣습니다. 수거 금지 품목의 대형 폐기물 스티커를 붙여 버리거나 생활쓰레기 종량제 봉투에 넣어서 버려야 합니다.",
+  },
+  cigarette: {
+    title: "담배꽁초",
+    description:
+      "불씨가 꺼졌는지 확인한 다음 일반쓰레기로 분류해 버리거나 전용 수거함에 넣습니다. 전용 수거함에는 담배꽁초 이외에는 버리면 안됩니다.",
   },
 };
 
