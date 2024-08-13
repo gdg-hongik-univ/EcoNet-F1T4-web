@@ -5,7 +5,7 @@ import Icon from "../assets/icons/314807_search_icon.png";
 
 const SearchContainer = styled.div`
   display: flex;
-  margin: 16px 0 0 32px;
+  margin-top: 16px;
 `;
 const SearchIcon = styled.img`
   width: 48px;
