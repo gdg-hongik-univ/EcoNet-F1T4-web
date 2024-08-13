@@ -60,7 +60,7 @@ const LocationInfo = styled.div`
 `;
 
 function BinInfoPage() {
-  const baseUrl = "http://13.124.235.155:8000";
+  const baseUrl = "https://api.econet-us.site/";
 
   const [binData, setBinData] = useState(null);
   const [loading, setLoading] = useState(true);

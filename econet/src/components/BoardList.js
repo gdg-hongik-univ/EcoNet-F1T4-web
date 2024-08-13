@@ -1,10 +1,10 @@
 import * as React from "react";
+import StyledBoardList from "../styles/StyledBoardList";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { isLoggedInState } from "../atom/atoms";
 import styled from "styled-components";
-import StyledBoardList from "../styles/StyledBoardList";
 import { gatheringPosts } from "../api/getboardlist";
 
 // 스타일 정의
@@ -87,7 +87,7 @@ const commonColumnProps = {
   sortable: false,
   resizable: false,
   headerAlign: "center",
-  cellClassName: "centeredCell", // 셀 중앙 정렬 클래스
+  // cellClassName: "centeredCell", // 셀 중앙 정렬 클래스
 };
 
 // 열 정의
@@ -103,6 +103,7 @@ const columns = [
     field: "name",
     headerName: "모임명",
     width: 150,
+    cellClassName: "bold-cell", // 볼드체 클래스를 적용
     ...commonColumnProps,
   },
   {
