@@ -8,5 +8,6 @@ export async function getDistricts() {
   } catch (e) {
     console.log(e.message);
     alert("에러가 발생했습니다");
+    return [];
   }
 }
