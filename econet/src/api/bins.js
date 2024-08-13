@@ -10,7 +10,7 @@ async function makePin(array) {
       },
       function (status, response) {
         if (status === naver.maps.Service.Status.ERROR) {
-          return alert("Something Wrong!");
+          throw "네이버 api 오류";
         }
 
         if (response.v2.meta.totalCount === 0) {
@@ -47,7 +47,8 @@ export const getBins = async (category) => {
     await makePin(arr);
     return arr;
   } catch (e) {
-    console.log(e.message);
+    console.log(e);
     alert("에러가 발생했습니다");
+    return;
   }
 };
