@@ -5,6 +5,17 @@ import styled from "styled-components";
 const StyledBoardList = styled(DataGrid)`
   max-width: 800px;
 
+  /* 모임명 셀에 볼드체 적용 */
+  .bold-cell {
+    font-weight: bold;
+  }
+
+  /* 모임명 셀에만 호버 스타일 적용 */
+  .bold-cell:hover {
+    background-color: #e0f7fa !important; /* 원하는 호버 배경색 */
+    color: #6bddc4; /* 원하는 호버 텍스트 색상 */
+  }
+
   /* 셀 포커스 스타일 제거 */
   .MuiDataGrid-cell:focus {
     outline: none; /* 포커스 상태에서 테두리 제거 */
