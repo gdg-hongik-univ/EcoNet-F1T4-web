@@ -14,8 +14,8 @@ const MainBox = styled.div`
 `;
 
 const BinName = styled.div`
-  font-size: 36px;
-  font-weight: 600;
+  font-size: 35px;
+  font-weight: 500;
   margin-bottom: 16px;
 `;
 
@@ -55,8 +55,8 @@ const StyledLi = styled.li`
 const LocationInfo = styled.div`
   margin-top: 64px;
   margin-bottom: 26px;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 500;
 `;
 
 function BinInfoPage() {

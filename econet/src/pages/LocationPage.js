@@ -11,8 +11,8 @@ const Title = styled.div`
   position: absolute;
   top: -85px;
   left: 0;
-  font-size: 36px;
-  font-weight: 700;
+  font-size: 35px;
+  font-weight: 500;
 `;
 
 const ContentBox = styled.div`
