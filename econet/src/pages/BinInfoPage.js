@@ -60,7 +60,7 @@ const LocationInfo = styled.div`
 `;
 
 function BinInfoPage() {
-  const baseUrl = "https://13.124.235.155.nip.io";
+  const baseUrl = "https://econet-us.site/";
 
   const [binData, setBinData] = useState(null);
   const [loading, setLoading] = useState(true);
