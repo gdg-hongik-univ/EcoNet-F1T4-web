@@ -60,7 +60,7 @@ const LocationInfo = styled.div`
 `;
 
 function BinInfoPage() {
-  const baseUrl = "http://13.124.235.155:8000/";
+  const baseUrl = "https://13.124.235.155.nip.io";
 
   const [binData, setBinData] = useState(null);
   const [loading, setLoading] = useState(true);
