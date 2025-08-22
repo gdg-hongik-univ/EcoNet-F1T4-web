@@ -61,5 +61,5 @@
 ### 박민서
 - 배출함 위치(네이버지도 배출함 위치 표시)
 
-
-<iframe width="1165" height="737" src="https://www.youtube.com/embed/T0ShQDQ98xk" title="EcoNet demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+## 시연 영상
+[![썸네일 이미지](https://img.youtube.com/vi/T0ShQDQ98xk/0.jpg)](https://www.youtube.com/watch?v=T0ShQDQ98xk)
